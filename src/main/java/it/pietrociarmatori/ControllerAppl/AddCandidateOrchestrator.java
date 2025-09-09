@@ -22,7 +22,7 @@ public class AddCandidateOrchestrator {
     private HuggingFaceClient hfc;
     private final String skills_param = "skills";
     private final String idoneita_param = "idoneita";
-    private final String anni_esperienza_param = "anni_esperienza";
+
     public AddCandidateOrchestrator(String param){
         this.application = param;
     }
@@ -30,6 +30,7 @@ public class AddCandidateOrchestrator {
         String idoneita;
 
         parseCV();
+        String anni_esperienza_param = "anni_esperienza";
         String skills = applicationDetails.get(skills_param).concat(".Anni di esperienza: " + applicationDetails.get(anni_esperienza_param));
         applicationDetails.remove(skills_param);
         applicationDetails.remove(anni_esperienza_param);
