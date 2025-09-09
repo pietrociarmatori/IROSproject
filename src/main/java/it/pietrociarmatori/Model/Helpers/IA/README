@@ -1,0 +1,2 @@
+Ho la classe huggingfaceclient che fa parte del pattern strategy, in questo modo posso intercambiare il tipo di servizi ia
+durante il runtime

@@ -1,0 +1,18 @@
+questo package contiene i due tipi di view:
+
+                                    |---ControllerGraph1
+                                    |
+                |----------View1----
+                |                   |
+                |                   |---GUI1
+                |
+View------------
+                |
+                |                   |---ControllerGraph2
+                |                   |
+                |----------View2----
+                                    |
+                                    |---GUI2
+
+L'appLaunch è un file unico presente nella cartella parent "View" che a seconda di un valore presente in un file di configurazione presente in "projectIROS/resources"
+(la cartella che contiene gli altri file di proprietà) sceglie quale view lanciare. Poi la scelta delle view corrette avverrà di conseguenza a runtime.

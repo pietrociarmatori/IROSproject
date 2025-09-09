@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Font?>
+
+
+<Button fx:id="BottoneIdoneo" onAction="#onIdoneo" mnemonicParsing="false" prefHeight="37.0" prefWidth="157.0" style="-fx-background-radius: 155;" text="Idoneo" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.pietrociarmatori.View.View1.View1ButtonIdoneoController">
+   <font>
+      <Font name="Calibri" size="18.0" />
+   </font>
+</Button>
