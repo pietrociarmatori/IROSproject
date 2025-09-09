@@ -20,6 +20,9 @@ public class AddCandidateOrchestrator {
     private String application;
     private Map<String, String> applicationDetails;
     private HuggingFaceClient hfc;
+    private final String skills_param = "skills";
+    private final String idoneita_param = "idoneita";
+    private final String anni_esperienza_param = "anni_esperienza";
     public AddCandidateOrchestrator(String param){
         this.application = param;
     }
@@ -27,13 +30,13 @@ public class AddCandidateOrchestrator {
         String idoneita;
 
         parseCV();
-        String skills = applicationDetails.get("skills").concat(".Anni di esperienza: " + applicationDetails.get("anni_esperienza"));
-        applicationDetails.remove("skills");
-        applicationDetails.remove("anni_esperienza");
-        applicationDetails.put("skills", skills);
+        String skills = applicationDetails.get(skills_param).concat(".Anni di esperienza: " + applicationDetails.get(anni_esperienza_param));
+        applicationDetails.remove(skills_param);
+        applicationDetails.remove(anni_esperienza_param);
+        applicationDetails.put(skills_param, skills);
 
         idoneita = getIdoneita();
-        applicationDetails.put("idoneita", idoneita);
+        applicationDetails.put(idoneita_param, idoneita);
 
         addCandidato();
     }
@@ -58,7 +61,7 @@ public class AddCandidateOrchestrator {
             String requisitiPosizione = dao.getRequisiti(posizione);
 
             applicationDetails.put("requisiti", requisitiPosizione);
-            String skills = applicationDetails.get("skills");
+            String skills = applicationDetails.get(skills_param);
             Params param = new Params();
             List<String> list = new ArrayList<>(0);
 
@@ -69,7 +72,7 @@ public class AddCandidateOrchestrator {
             hfc.setParams(param);
             hfc.setStrategy(new IAFitness());
             hfc.executeIAService();
-            idoneita = hfc.getResultIA().get("idoneita");
+            idoneita = hfc.getResultIA().get(idoneita_param);
         }catch(IAServiceException | DAOException e){}
         return idoneita;
     }
@@ -81,11 +84,11 @@ public class AddCandidateOrchestrator {
             candidato.setCognome(applicationDetails.get("cognome"));
             candidato.setPosizione(applicationDetails.get("posizione"));
             candidato.setRequisitiPosizione(applicationDetails.get("requisiti"));
-            candidato.setSkillCandidato(applicationDetails.get("skills"));
+            candidato.setSkillCandidato(applicationDetails.get(skills_param));
             candidato.setIndirizzoMailCandidato(applicationDetails.get("mail"));
             candidato.setMailDiRisposta(null);
             candidato.setNomeDipartimento(applicationDetails.get("dipartimento"));
-            candidato.setIdoneita(applicationDetails.get("idoneita"));
+            candidato.setIdoneita(applicationDetails.get(idoneita_param));
 
             CandidatiDAO dao = new CandidatiDAO();
             dao.addCandidato(candidato);

@@ -70,5 +70,6 @@ public class HomeScreen implements CliScreen{
                 scanner.nextLine();
                 return this;
         }
+        return null;
     }
 }
