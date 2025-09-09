@@ -64,6 +64,7 @@ public class HomeScreen implements CliScreen{
                     System.out.println();
                 }
                 System.exit(0);
+                break;
             default:
                 System.out.println("Scegliere una delle tre opzioni!");
                 scanner.nextLine();
