@@ -44,7 +44,7 @@ public class AddCandidateOrchestrator {
 
             addCandidato();
         }catch(DAOException | IAServiceException e){
-            // Append log entry to ./resources/dao.log
+            // essendo una classe che gira in background loggo le exceptions
             try (FileWriter fw = new FileWriter("src/main/resources/dao.log", true);
                  PrintWriter pw = new PrintWriter(fw)) {
                 pw.println("[" + java.time.LocalDateTime.now() + "] DAOException caught: " + e.getMessage());
