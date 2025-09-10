@@ -9,6 +9,9 @@ import it.pietrociarmatori.Model.Helpers.IA.IAFitness;
 import it.pietrociarmatori.Model.Helpers.IA.IAParseCV;
 import it.pietrociarmatori.Model.Helpers.Params;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,22 +30,31 @@ public class AddCandidateOrchestrator {
         this.application = param;
     }
     public void handleApplication(){
-        String idoneita;
-
-        parseCV();
-        String anni_esperienza_param = "anni_esperienza";
-        String skills = applicationDetails.get(skills_param).concat(".Anni di esperienza: " + applicationDetails.get(anni_esperienza_param));
-        applicationDetails.remove(skills_param);
-        applicationDetails.remove(anni_esperienza_param);
-        applicationDetails.put(skills_param, skills);
-
-        idoneita = getIdoneita();
-        applicationDetails.put(idoneita_param, idoneita);
-
-        addCandidato();
-    }
-    private void parseCV(){
         try {
+            String idoneita;
+            parseCV();
+            String anni_esperienza_param = "anni_esperienza";
+            String skills = applicationDetails.get(skills_param).concat(".Anni di esperienza: " + applicationDetails.get(anni_esperienza_param));
+            applicationDetails.remove(skills_param);
+            applicationDetails.remove(anni_esperienza_param);
+            applicationDetails.put(skills_param, skills);
+
+            idoneita = getIdoneita();
+            applicationDetails.put(idoneita_param, idoneita);
+
+            addCandidato();
+        }catch(DAOException | IAServiceException e){
+            // Append log entry to ./resources/dao.log
+            try (FileWriter fw = new FileWriter("src/main/resources/dao.log", true);
+                 PrintWriter pw = new PrintWriter(fw)) {
+                pw.println("[" + java.time.LocalDateTime.now() + "] DAOException caught: " + e.getMessage());
+                e.printStackTrace(pw); // full stack trace
+            } catch (IOException ioEx) {
+            }
+        }
+    }
+    private void parseCV() throws IAServiceException {
+
             Params param = new Params();
             List<String> list = new ArrayList<>(0);
             list.add(application);
@@ -52,13 +64,11 @@ public class AddCandidateOrchestrator {
             hfc.setStrategy(new IAParseCV());
             hfc.executeIAService();
             applicationDetails = hfc.getResultIA();
-        }catch(IAServiceException e){
-            // si potrebbe andare a scrivere su un file il log di errore
-        }
+
     }
-    private String getIdoneita(){
+    private String getIdoneita() throws IAServiceException, DAOException {
         String idoneita = null;
-        try {
+
             String posizione = applicationDetails.get("posizione");
             PosizioniAperteDAOJDBC dao = new PosizioniAperteDAOJDBC();
             String requisitiPosizione = dao.getRequisiti(posizione);
@@ -76,14 +86,12 @@ public class AddCandidateOrchestrator {
             hfc.setStrategy(new IAFitness());
             hfc.executeIAService();
             idoneita = hfc.getResultIA().get(idoneita_param);
-        }catch(IAServiceException | DAOException e){
-            // si potrebbe andare a scrivere su un file il log di errore
-        }
+
         return idoneita;
     }
 
-    private void addCandidato(){
-        try {
+    private void addCandidato() throws DAOException {
+
             CandidatoBean candidato = new CandidatoBean();
             candidato.setNome(applicationDetails.get("nome"));
             candidato.setCognome(applicationDetails.get("cognome"));
@@ -97,8 +105,6 @@ public class AddCandidateOrchestrator {
 
             CandidatiDAO dao = new CandidatiDAO();
             dao.addCandidato(candidato);
-        }catch(DAOException e){
-            // si potrebbe andare a scrivere su un file il log di errore
-        }
+
     }
 }
