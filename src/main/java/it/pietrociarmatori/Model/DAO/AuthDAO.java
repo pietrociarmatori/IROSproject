@@ -70,17 +70,6 @@ public class AuthDAO {
         }catch(ConnectionPoolException e){
             exc = e;
             throw new DAOException(e.getMessage());
-        }finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione.");
-                }
-            }
         }
         return ceb;
     }
