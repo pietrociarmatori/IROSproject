@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 // Viene chiamato orchestrator perché orchestra una funzione automatica del sistema. A livello pratico fa quello che fa un controller
-// infatti coordina le classi per arrivare ad un obiettivo. Non è però un vero e proprio controller applicativo (ragion per cui mi sono
+// infatti coordina le classi per arrivare a un obiettivo. Non è però un vero e proprio controller applicativo (ragion per cui mi sono
 // permesso degli attributi) perché non rappresenta un caso d'uso che può essere inizializzato da un tipo di utente
 // per cui il sistema è stato pensato.
 public class AddCandidateOrchestrator {
@@ -52,7 +52,9 @@ public class AddCandidateOrchestrator {
             hfc.setStrategy(new IAParseCV());
             hfc.executeIAService();
             applicationDetails = hfc.getResultIA();
-        }catch(IAServiceException e){}
+        }catch(IAServiceException e){
+            // si potrebbe andare a scrivere su un file il log di errore
+        }
     }
     private String getIdoneita(){
         String idoneita = null;
@@ -74,7 +76,9 @@ public class AddCandidateOrchestrator {
             hfc.setStrategy(new IAFitness());
             hfc.executeIAService();
             idoneita = hfc.getResultIA().get(idoneita_param);
-        }catch(IAServiceException | DAOException e){}
+        }catch(IAServiceException | DAOException e){
+            // si potrebbe andare a scrivere su un file il log di errore
+        }
         return idoneita;
     }
 
@@ -93,6 +97,8 @@ public class AddCandidateOrchestrator {
 
             CandidatiDAO dao = new CandidatiDAO();
             dao.addCandidato(candidato);
-        }catch(DAOException e){}
+        }catch(DAOException e){
+            // si potrebbe andare a scrivere su un file il log di errore
+        }
     }
 }
