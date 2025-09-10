@@ -50,6 +50,7 @@ public class AddCandidateOrchestrator {
                 pw.println("[" + java.time.LocalDateTime.now() + "] DAOException caught: " + e.getMessage());
                 e.printStackTrace(pw); // full stack trace
             } catch (IOException ioEx) {
+                // suppress
             }
         }
     }
