@@ -34,7 +34,7 @@ public class InviaEmailController {
             cand.setMailDiRisposta(mail.getEmail());
             dao.addMailCandidato(cand);
         }catch(DAOException | GmailServiceException e){
-            throw new TaskException("Errore durante la pubblicazione dell'osservazione", e);
+            throw new TaskException("Errore durante l'invio della mail", e);
         }catch(SecurityException e){
             throw new TaskException(e);
         }
