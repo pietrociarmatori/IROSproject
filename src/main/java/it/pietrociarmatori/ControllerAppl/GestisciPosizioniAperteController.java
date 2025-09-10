@@ -25,8 +25,6 @@ import java.util.Properties;
 // system e db relazionale. I metodi che vengono wrappati (i primi 3) sono stati comunque mantenuti
 // pubblici intenzionalmente. I Wrappers iniziano a circa riga 114 CAMBIARE RIGA SE SI EFFETTUANO MODIFICHE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class GestisciPosizioniAperteController {
-    private TabellaPosizioniAperteBuilder tpab;
-    private AuthService auth;
     private PosizioniAperteDAO dao;
 
     @HROnly
