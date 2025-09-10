@@ -3,6 +3,7 @@ package it.pietrociarmatori.View.View1;
 import it.pietrociarmatori.Model.Beans.CandidatoBean;
 import it.pietrociarmatori.View.SessionHR;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,14 +16,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class View1CandidatoButtonController implements ControlledScreen{
-    public AnchorPane Root;
-    public Label PosizioneLabel;
-    public Label IdoneitaLabel;
-    public Label SkillLabel;
-    public Button CandidatoButton;
+    @FXML
+    private AnchorPane Root;
+    @FXML
+    private Label PosizioneLabel;
+    @FXML
+    private Label IdoneitaLabel;
+    @FXML
+    private Label SkillLabel;
+    @FXML
+    private Button CandidatoButton;
     private SessionHR sessionHR;
-    public VBox parent;
-    public Node self;
+    private VBox parent;
+    private Node self;
     private CandidatoBean cb;
 
 

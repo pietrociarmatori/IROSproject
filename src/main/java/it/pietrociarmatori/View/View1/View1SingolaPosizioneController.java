@@ -23,11 +23,11 @@ public class View1SingolaPosizioneController{
     private Label NomePosizioneLabel;
     @FXML
     private Label RequisitiLabel;
-    public VBox parent;
-    public Node self;
-    public SessionHR sessionHR;
-    public PosizioneBean pd;
-    public View1PosizioniAperteController parentController;
+    private VBox parent;
+    private Node self;
+    private SessionHR sessionHR;
+    private PosizioneBean pd;
+    private View1PosizioniAperteController parentController;
 
     public void setPosizione(PosizioneBean pd, SessionHR session){
         this.pd = pd;

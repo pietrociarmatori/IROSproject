@@ -1,10 +1,12 @@
 package it.pietrociarmatori.View.View1;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class View1ButtonIdoneoController {
-    public Button BottoneIdoneo;
+    @FXML
+    private Button BottoneIdoneo;
     public View1SingoloCandidatoController parentController;
 
     public void onIdoneo(ActionEvent event) {

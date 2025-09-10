@@ -52,8 +52,8 @@ public class View1PosizioniAperteController implements ControlledScreen{
     private Button SwapButton;
     @FXML
     private VBox PosizioniContainer;
-    public SessionHR sessionHR;
-    public TabellaPosizioniAperteBean tpa;
+    private SessionHR sessionHR;
+    private TabellaPosizioniAperteBean tpa;
     private String opcode = "1";
 
     public String getopcode(){

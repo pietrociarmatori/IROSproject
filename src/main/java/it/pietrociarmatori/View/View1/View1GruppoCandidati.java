@@ -7,6 +7,7 @@ import it.pietrociarmatori.Model.Beans.TabellaCandidatiBean;
 import it.pietrociarmatori.Model.Entity.CandidatiDipartimento;
 import it.pietrociarmatori.View.SessionHR;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -19,17 +20,26 @@ import java.util.List;
 import java.util.Map;
 
 public class View1GruppoCandidati implements ControlledScreen{
+    @FXML
     public Button SoftwareDevButton;
+    @FXML
     public Button DataEngButton;
+    @FXML
     public Button SecurityButton;
+    @FXML
     public Button SalesButton;
+    @FXML
     public Button BackButton;
+    @FXML
     public Button LogoButton;
+    @FXML
     public Button ProfileButton;
+    @FXML
     public VBox CandidatiContainer;
-    public SessionHR sessionHR;
-    public AnchorPane Root;
-    public TabellaCandidatiBean tcb;
+    @FXML
+    private AnchorPane Root;
+    private SessionHR sessionHR;
+    private TabellaCandidatiBean tcb;
 
     public void handleSoftwareDevButton(ActionEvent event) {
         CandidatiContainer.getChildren().clear();

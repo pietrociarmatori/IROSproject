@@ -14,23 +14,23 @@ import javafx.scene.paint.Paint;
 
 public class View1FormOsservazioneController implements ControlledScreen{
     @FXML
-    public ImageView ImageLogo;
+    private ImageView ImageLogo;
     @FXML
-    public Label NomeLabel;
+    private Label NomeLabel;
     @FXML
-    public Label CognomeLabel;
+    private Label CognomeLabel;
     @FXML
-    public Label RuoloLabel;
+    private Label RuoloLabel;
     @FXML
-    public Label DipartimentoLabel;
+    private Label DipartimentoLabel;
     @FXML
-    public Label MatricolaLabel;
+    private Label MatricolaLabel;
     @FXML
-    public Label PasswordLabel;
+    private Label PasswordLabel;
     @FXML
-    public TextArea OsservazioneText;
+    private TextArea OsservazioneText;
     @FXML
-    public Button BottonePubblica;
+    private Button BottonePubblica;
     private SessionEmployee session;
 
     public void handleBottone(ActionEvent event){

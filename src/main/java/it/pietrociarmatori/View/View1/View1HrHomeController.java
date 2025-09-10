@@ -17,7 +17,7 @@ public class View1HrHomeController implements ControlledScreen{
     @FXML
     private ImageView ProfileImage;
     @FXML
-    public AnchorPane Root;
+    private AnchorPane Root;
     @FXML
     private Button GestisciOsservazioniButton;
     @FXML

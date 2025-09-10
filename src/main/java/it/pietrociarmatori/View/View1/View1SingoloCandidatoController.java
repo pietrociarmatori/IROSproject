@@ -61,9 +61,12 @@ public class View1SingoloCandidatoController implements ControlledScreen{
     private VBox ButtonsHolder;
     private SessionHR sessionHR;
     private CandidatoBean cb;
-    public Button Idoneo;
-    public Button NonIdoneo;
-    public Button DaValutare;
+    @FXML
+    private Button Idoneo;
+    @FXML
+    private Button NonIdoneo;
+    @FXML
+    private Button DaValutare;
 
     public void handleBackButton(ActionEvent event) {
         // carica la pagina dei candidati

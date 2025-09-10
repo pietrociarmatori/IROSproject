@@ -1,10 +1,12 @@
 package it.pietrociarmatori.View.View1;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class View1ButtonDaValutareController {
-    public Button BottoneDaValutare;
+    @FXML
+    private Button BottoneDaValutare;
     public View1SingoloCandidatoController parentController;
 
     public void onDaValutare(ActionEvent event) {
