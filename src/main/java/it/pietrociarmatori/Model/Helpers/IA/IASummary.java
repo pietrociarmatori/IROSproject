@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class IASummary implements IAStrategy{
     public Map<String, String> execute(Params params) throws IOException, InterruptedException {
         List<String> parametri = params.getParams();
-        String osservazioni = parametri.stream().collect(Collectors.joining(" "));
+        String osservazioni = String.join(" ", parametri);
 
         // inserisci i componenti della lista nel prompt, il numero è variabile quindi ti servirà un ciclo
         Gson gson = new Gson();

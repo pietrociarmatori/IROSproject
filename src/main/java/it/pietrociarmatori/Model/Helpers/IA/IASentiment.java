@@ -18,7 +18,7 @@ import java.util.Map;
 public class IASentiment implements IAStrategy{
     public Map<String,String> execute(Params params) throws IOException, InterruptedException {
         List<String> parametri = params.getParams();
-        String osservazione = parametri.get(0);
+        String osservazione = parametri.getFirst();
         // riempie il prompt con l'osservazione
 
         Gson gson = new Gson();
@@ -39,7 +39,7 @@ public class IASentiment implements IAStrategy{
         JsonObject jsonObject = JsonParser.parseString(response.body()).getAsJsonObject();
         JsonArray results = jsonObject.getAsJsonArray("results");
 
-        if (results != null && results.size() > 0) {
+        if (results != null && !results.isEmpty()) {
             JsonObject firstResult = results.get(0).getAsJsonObject();
 
             // Estrai frase
@@ -48,9 +48,9 @@ public class IASentiment implements IAStrategy{
 
             // Estrai primo sentiment label
             JsonArray sentimentOuter = firstResult.getAsJsonArray("sentiment");
-            if (sentimentOuter != null && sentimentOuter.size() > 0) {
+            if (sentimentOuter != null && !sentimentOuter.isEmpty()) {
                 JsonArray innerSentiment = sentimentOuter.get(0).getAsJsonArray();
-                if (innerSentiment.size() > 0) {
+                if (!innerSentiment.isEmpty()) {
                     String label = innerSentiment.get(0).getAsJsonObject().get("label").getAsString();
                     result.put("sentiment", label);
                 }
