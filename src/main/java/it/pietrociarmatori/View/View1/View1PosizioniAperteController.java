@@ -55,6 +55,8 @@ public class View1PosizioniAperteController implements ControlledScreen{
     private SessionHR sessionHR;
     private TabellaPosizioniAperteBean tpa;
     private String opcode = "1";
+    private final String PathSingolaOsservazione = "/Fxml/SingolaOsservazione.fxml";
+    private final String PathHRHome = "/Fxml/HRhome.fxml";
 
     public String getopcode(){
         return this.opcode;
@@ -69,7 +71,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaPosizione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -95,7 +97,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaPosizione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -121,7 +123,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaPosizione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -147,7 +149,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaPosizione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -166,13 +168,13 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
     public void handleBackButton(ActionEvent event) {
         // in questo caso torna alla home
-        App.getSceneManager().switchTo("home", "/Fxml/HRhome.fxml", sessionHR);
+        App.getSceneManager().switchTo("home", PathHRHome, sessionHR);
 
     }
 
     public void handleLogoButton(ActionEvent event) {
         // torna alla home
-        App.getSceneManager().switchTo("home", "/Fxml/HRhome.fxml", sessionHR);
+        App.getSceneManager().switchTo("home", PathHRHome, sessionHR);
 
     }
 

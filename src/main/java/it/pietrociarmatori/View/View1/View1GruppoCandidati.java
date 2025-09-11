@@ -41,6 +41,7 @@ public class View1GruppoCandidati implements ControlledScreen{
     private SessionHR sessionHR;
     private TabellaCandidatiBean tcb;
 
+    private String pathCandButton = "/Fxml/CandidatoButton.fxml";
     public void handleSoftwareDevButton(ActionEvent event) {
         CandidatiContainer.getChildren().clear();
 
@@ -50,7 +51,7 @@ public class View1GruppoCandidati implements ControlledScreen{
 
         for(CandidatoBean candidato : listaCandidati){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/CandidatoButton.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
                 Node element = loader.load();
 
                 View1CandidatoButtonController controller = loader.getController();
@@ -74,7 +75,7 @@ public class View1GruppoCandidati implements ControlledScreen{
 
         for(CandidatoBean candidato : listaCandidati){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/CandidatoButton.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
                 Node element = loader.load();
 
                 View1CandidatoButtonController controller = loader.getController();
@@ -98,7 +99,7 @@ public class View1GruppoCandidati implements ControlledScreen{
 
         for(CandidatoBean candidato : listaCandidati){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/CandidatoButton.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
                 Node element = loader.load();
 
                 View1CandidatoButtonController controller = loader.getController();
@@ -122,7 +123,7 @@ public class View1GruppoCandidati implements ControlledScreen{
 
         for(CandidatoBean candidato : listaCandidati){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/CandidatoButton.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
                 Node element = loader.load();
 
                 View1CandidatoButtonController controller = loader.getController();

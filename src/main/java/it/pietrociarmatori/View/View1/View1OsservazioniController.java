@@ -61,6 +61,8 @@ public class View1OsservazioniController implements ControlledScreen{
 
     private SessionHR sessionHR;
     private TabellaOsservazioniBean tob;
+    private final String PathSingolaOsservazione = "/Fxml/SingolaOsservazione.fxml";
+    private final String PathHRHome = "/Fxml/HRhome.fxml";
     @Override
     public void onShow(Object data) {
         sessionHR = (SessionHR) data;
@@ -122,7 +124,7 @@ public class View1OsservazioniController implements ControlledScreen{
 
     public void handleLogoButton(ActionEvent event) {
         // torna nella home
-        App.getSceneManager().switchTo("home", "/Fxml/HRhome.fxml", sessionHR);
+        App.getSceneManager().switchTo("home", PathHRHome, sessionHR);
     }
 
     public void handleSoftwareDevButton(ActionEvent event) {
@@ -143,7 +145,7 @@ public class View1OsservazioniController implements ControlledScreen{
 
         for(OsservazioneBean osservazione : listaOsservazioni){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaOsservazione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaOsservazioneController controller = loader.getController();
@@ -177,7 +179,7 @@ public class View1OsservazioniController implements ControlledScreen{
 
         for(OsservazioneBean osservazione : listaOsservazioni){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaOsservazione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaOsservazioneController controller = loader.getController();
@@ -211,7 +213,7 @@ public class View1OsservazioniController implements ControlledScreen{
 
         for(OsservazioneBean osservazione : listaOsservazioni){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaOsservazione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaOsservazioneController controller = loader.getController();
@@ -245,7 +247,7 @@ public class View1OsservazioniController implements ControlledScreen{
 
         for(OsservazioneBean osservazione : listaOsservazioni){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/SingolaOsservazione.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaOsservazioneController controller = loader.getController();
@@ -264,6 +266,6 @@ public class View1OsservazioniController implements ControlledScreen{
 
     public void handleBackButton(ActionEvent event) {
         // va alla home in questo caso
-        App.getSceneManager().switchTo("home", "/Fxml/HRhome.fxml", sessionHR);
+        App.getSceneManager().switchTo("home", PathHRHome, sessionHR);
     }
 }
