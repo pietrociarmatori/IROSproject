@@ -15,20 +15,12 @@ public class EmployeeFormScreen implements CliScreen{
     }
     @Override
     public void render() {
-        String line = "-------------------------------------------------------";
-        System.out.println(line+"                                                                                            Dati profilo:");
-        System.out.println(line);
-        System.out.println("-------  --------------  --------------  --------------                                                                                            -)Nome: "+sessionEmployee.getCred().getNome());
-        System.out.println("|     |  |            |  |            |  |            |                                                                                            -)Cognome: "+sessionEmployee.getCred().getCognome());
-        System.out.println("|     |  |     ---    |  |      |     |  |            |                                                                                            -)Ruolo: "+sessionEmployee.getCred().getRuolo());
-        System.out.println("|     |  |            |  |      |     |  |       -----|                                                                                            -)Dipartimento: "+sessionEmployee.getCred().getDipartimento());
-        System.out.println("|     |  |       -----|  |      |     |  |            |                                                                                            -)Matricola: "+sessionEmployee.getCred().getMatricola());
-        System.out.println("|     |  |            |  |      |     |  |-----       |                                                                                            -)Password: "+sessionEmployee.getCred().getPassword());
-        System.out.println("|     |  |     |      |  |      |     |  |            |");
-        System.out.println("|     |  |     |      |  |            |  |            |");
-        System.out.println("-------  --------------  --------------  --------------");
-        System.out.println(line);
-        System.out.println(line);
+        HeaderCreator.createHeader(sessionEmployee.getCred().getNome(),
+                sessionEmployee.getCred().getCognome(),
+                sessionEmployee.getCred().getRuolo(),
+                sessionEmployee.getCred().getDipartimento(),
+                sessionEmployee.getCred().getMatricola(),
+                sessionEmployee.getCred().getPassword());
         for(int i = 0; i<15; i++){
             System.out.println();
         }

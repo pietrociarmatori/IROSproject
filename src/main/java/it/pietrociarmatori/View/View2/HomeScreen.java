@@ -13,20 +13,12 @@ public class HomeScreen implements CliScreen{
 
     @Override
     public void render() {
-        String line = "-------------------------------------------------------";
-        System.out.println(line+"                                                                                            Dati profilo:");
-        System.out.println(line);
-        System.out.println("-------  --------------  --------------  --------------                                                                                            -)Nome: "+sessionHR.getCred().getNome());
-        System.out.println("|     |  |            |  |            |  |            |                                                                                            -)Cognome: "+sessionHR.getCred().getCognome());
-        System.out.println("|     |  |     ---    |  |      |     |  |            |                                                                                            -)Ruolo: "+sessionHR.getCred().getRuolo());
-        System.out.println("|     |  |            |  |      |     |  |       -----|                                                                                            -)Dipartimento: "+sessionHR.getCred().getDipartimento());
-        System.out.println("|     |  |       -----|  |      |     |  |            |                                                                                            -)Matricola: "+sessionHR.getCred().getMatricola());
-        System.out.println("|     |  |            |  |      |     |  |-----       |                                                                                            -)Password: "+sessionHR.getCred().getPassword());
-        System.out.println("|     |  |     |      |  |      |     |  |            |");
-        System.out.println("|     |  |     |      |  |            |  |            |");
-        System.out.println("-------  --------------  --------------  --------------");
-        System.out.println(line);
-        System.out.println(line);
+        HeaderCreator.createHeader(sessionHR.getCred().getNome(),
+                sessionHR.getCred().getCognome(),
+                sessionHR.getCred().getRuolo(),
+                sessionHR.getCred().getDipartimento(),
+                sessionHR.getCred().getMatricola(),
+                sessionHR.getCred().getPassword());
         for(int i = 0; i<15; i++){
             System.out.println();
         }
