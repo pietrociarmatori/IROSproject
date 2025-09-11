@@ -36,8 +36,9 @@ public class PositionsScreen implements CliScreen{
     }
     @Override
     public void render() {
-        System.out.println("-------------------------------------------------------                                                                                            Dati profilo:");
-        System.out.println("-------------------------------------------------------");
+        String line = "-------------------------------------------------------";
+        System.out.println(line+"                                                                                            Dati profilo:");
+        System.out.println(line);
         System.out.println("-------  --------------  --------------  --------------                                                                                            -)Nome: "+sessionHR.getCred().getNome());
         System.out.println("|     |  |            |  |            |  |            |                                                                                            -)Cognome: "+sessionHR.getCred().getCognome());
         System.out.println("|     |  |     ---    |  |      |     |  |            |                                                                                            -)Ruolo: "+sessionHR.getCred().getRuolo());
@@ -47,8 +48,8 @@ public class PositionsScreen implements CliScreen{
         System.out.println("|     |  |     |      |  |      |     |  |            |");
         System.out.println("|     |  |     |      |  |            |  |            |");
         System.out.println("-------  --------------  --------------  --------------");
-        System.out.println("-------------------------------------------------------");
-        System.out.println("-------------------------------------------------------");
+        System.out.println(line);
+        System.out.println(line);
         System.out.println();
         System.out.println("POSIZIONI: ");
 

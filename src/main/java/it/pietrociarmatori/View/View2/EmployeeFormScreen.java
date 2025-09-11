@@ -15,8 +15,9 @@ public class EmployeeFormScreen implements CliScreen{
     }
     @Override
     public void render() {
-        System.out.println("-------------------------------------------------------                                                                                            Dati profilo:");
-        System.out.println("-------------------------------------------------------");
+        String line = "-------------------------------------------------------";
+        System.out.println(line+"                                                                                            Dati profilo:");
+        System.out.println(line);
         System.out.println("-------  --------------  --------------  --------------                                                                                            -)Nome: "+sessionEmployee.getCred().getNome());
         System.out.println("|     |  |            |  |            |  |            |                                                                                            -)Cognome: "+sessionEmployee.getCred().getCognome());
         System.out.println("|     |  |     ---    |  |      |     |  |            |                                                                                            -)Ruolo: "+sessionEmployee.getCred().getRuolo());
@@ -26,23 +27,11 @@ public class EmployeeFormScreen implements CliScreen{
         System.out.println("|     |  |     |      |  |      |     |  |            |");
         System.out.println("|     |  |     |      |  |            |  |            |");
         System.out.println("-------  --------------  --------------  --------------");
-        System.out.println("-------------------------------------------------------");
-        System.out.println("-------------------------------------------------------");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        System.out.println(line);
+        System.out.println(line);
+        for(int i = 0; i<15; i++){
+            System.out.println();
+        }
         System.out.println("HOME: ");
         System.out.println();
         System.out.println("Benvenuto, " + sessionEmployee.getCred().getNome()+" "+sessionEmployee.getCred().getCognome() + "!");
