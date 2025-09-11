@@ -18,6 +18,13 @@ public class IAParseCV implements IAStrategy{
         List<String> parametri = params.getParams();
         String mail = parametri.get(0);
 
+        Map<String, String> result = new HashMap<>();
+
+        if(mail == null || mail.length() < 40){
+            result.put("skills", "mail vuota");
+            return result;
+        }
+
         // inserisce mail nel prompt
         String deepPromptPARSECV = "Sei un assistente HR intelligente. Ti fornirò il testo di una email ricevuta da un candidato che si sta candidando per una posizione lavorativa. "
                 + "Il tuo compito è estrarre in formato JSON i seguenti dati: "
@@ -59,8 +66,6 @@ public class IAParseCV implements IAStrategy{
 
         // crea la mappa
         JsonObject jsonObject = JsonParser.parseString(gson.toJson(jsonData)).getAsJsonObject();
-
-        Map<String, String> result = new HashMap<>();
 
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
             String key = entry.getKey();

@@ -65,6 +65,9 @@ public class AddCandidateOrchestrator {
             hfc.setStrategy(new IAParseCV());
             hfc.executeIAService();
             applicationDetails = hfc.getResultIA();
+            if(applicationDetails.get(skills_param).equals("mail vuota")){
+                throw new IAServiceException("Contenuto mail assente!");
+            }
 
     }
     private String getIdoneita() throws IAServiceException, DAOException {
