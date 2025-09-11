@@ -18,9 +18,8 @@ public class LoginDAO {
 
     public Credentials execute(LoginCredentialsBean lcb) throws DAOException {
         Credentials cred = null;
-        Connection connection = null;
-        Throwable exc = null;
-        ResultSet rs = null;
+        Connection connection;
+        ResultSet rs;
 
         try {
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -42,22 +41,11 @@ public class LoginDAO {
                 cred.setDipartimento(rs.getString(6));
             }
         } catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile accedere al database");
         }catch(ConnectionPoolException e){
-            exc = e;
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
         return cred;
     }

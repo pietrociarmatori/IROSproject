@@ -17,9 +17,8 @@ public class AuthDAO {
 
     public CredentialsEmployeeBean getDipendente(CredentialsEmployeeBean cred) throws DAOException{
         CredentialsEmployeeBean ceb = new CredentialsEmployeeBean();
-        Connection connection = null;
-        Throwable exc = null;
-        ResultSet rs = null;
+        Connection connection;
+        ResultSet rs;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -36,19 +35,16 @@ public class AuthDAO {
                 ceb.setDipartimento(rs.getString(6));
             }
         }catch(SQLException e) {
-            exc = e;
             throw new DAOException("Servizio di autorizzazione non disponibile");
         }catch(ConnectionPoolException e){
-            exc = e;
             throw new DAOException(e.getMessage());
         }
         return ceb;
     }
     public CredentialsHRBean getHR(CredentialsHRBean cred) throws DAOException{
         CredentialsHRBean ceb = new CredentialsHRBean();
-        Connection connection = null;
-        Throwable exc = null;
-        ResultSet rs = null;
+        Connection connection;
+        ResultSet rs;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -65,10 +61,8 @@ public class AuthDAO {
                 ceb.setDipartimento(rs.getString(6));
             }
         }catch(SQLException e) {
-            exc = e;
             throw new DAOException("Servizio di autorizzazione non disponibile");
         }catch(ConnectionPoolException e){
-            exc = e;
             throw new DAOException(e.getMessage());
         }
         return ceb;

@@ -16,10 +16,9 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
     private ConnectionPoolMYSQL connectionPool;
     public List<PosizioneBean> getPosizioniAperte() throws DAOException {
         List<PosizioneBean> data = new ArrayList<>(0);
-        PosizioneBean pos = null;
-        Connection connection = null;
-        Throwable exc = null;
-        ResultSet rs = null;
+        PosizioneBean pos;
+        Connection connection;
+        ResultSet rs;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -35,30 +34,18 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
                 data.add(pos);
             }
         }catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile eliminare il candidato dal database");
         }catch(ConnectionPoolException e){
-            exc = e;
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
 
         return data;
     }
 
     public void addPosizioneAperta(PosizioneBean pos) throws DAOException {
-        Connection connection = null;
-        Throwable exc = null;
+        Connection connection;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -67,28 +54,16 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
             PosizioniQueries.aggiungiPosizione(connection, pos);
 
         }catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile eliminare il candidato dal database");
         }catch(ConnectionPoolException e){
-            exc = e;
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
     }
 
     public void deletePosizioneAperta(PosizioneBean pos) throws DAOException {
-        Connection connection = null;
-        Throwable exc = null;
+        Connection connection;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -97,29 +72,17 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
             PosizioniQueries.eliminaPosizione(connection, pos);
 
         }catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile eliminare il candidato dal database");
         }catch(ConnectionPoolException e){
-            exc = e;
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
     }
     public String getRequisiti(String posizione) throws DAOException {
-        Connection connection = null;
+        Connection connection;
         String requisiti = null;
-        Throwable exc = null;
-        ResultSet rs = null;
+        ResultSet rs;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -131,22 +94,11 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
                 requisiti = rs.getString(1);
             }
         }catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile eliminare il candidato dal database");
         }catch(ConnectionPoolException e){
-            exc = e;
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
         return requisiti;
     }

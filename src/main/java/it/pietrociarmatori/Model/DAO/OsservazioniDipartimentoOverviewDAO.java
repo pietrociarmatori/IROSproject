@@ -18,8 +18,7 @@ public class OsservazioniDipartimentoOverviewDAO {
     private ConnectionPoolInterface connectionPool;
 
     public void aggiungiOverviewDipartimento(String dip, String riass, String sentiment) throws DAOException {
-        Connection connection = null;
-        Throwable exc = null;
+        Connection connection;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -29,31 +28,19 @@ public class OsservazioniDipartimentoOverviewDAO {
             OverviewDipartimentoQueries.aggiungiSentiment(connection, dip, sentiment);
 
         }catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile eliminare il candidato dal database");
         }catch(ConnectionPoolException e){
-            exc = e;
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
     }
 
     public List<DipartimentoSentimentOverview> getDipartimentiOverview() throws DAOException {
         List<DipartimentoSentimentOverview> data = new ArrayList<>(0);
         DipartimentoSentimentOverview overview;
-        Connection connection = null;
-        Throwable exc = null;
-        ResultSet rs = null;
+        Connection connection;
+        ResultSet rs;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -70,30 +57,18 @@ public class OsservazioniDipartimentoOverviewDAO {
                 data.add(overview);
             }
         }catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile eliminare il candidato dal database");
-        }catch(ConnectionPoolException e){
-            exc = e;
+        }catch(ConnectionPoolException e) {
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
 
         return data;
     }
 
     public void addProvvedimento(ProvvedimentoBean provv) throws DAOException {
-        Connection connection = null;
-        Throwable exc = null;
+        Connection connection;
 
         try{
             connectionPool = ConnectionPoolMYSQL.getInstance();
@@ -101,22 +76,11 @@ public class OsservazioniDipartimentoOverviewDAO {
 
             OverviewDipartimentoQueries.aggiungiProvvedimenti(connection, provv);
         }catch(SQLException e) {
-            exc = e;
+
             throw new DAOException("Impossibile aggiungere provvedimento al database");
         }catch(ConnectionPoolException e){
-            exc = e;
+
             throw new DAOException(e.getMessage());
-        } finally{
-            try{
-                if(connection != null)
-                    connectionPool.releaseConnection(connection);
-            }catch(ConnectionPoolException e){
-                if(exc != null){ // non voglio perdere l'eccezione originale
-                    exc.addSuppressed(e);
-                }else {
-                    throw new DAOException("Impossibile chiudere propriamente la connessione");
-                }
-            }
         }
     }
 }
