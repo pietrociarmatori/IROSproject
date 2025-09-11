@@ -26,6 +26,7 @@ import java.util.Properties;
 // pubblici intenzionalmente. I Wrappers iniziano a circa riga 114 CAMBIARE RIGA SE SI EFFETTUANO MODIFICHE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class GestisciPosizioniAperteController {
     private PosizioniAperteDAO dao;
+    private String path = "resources/DAO.properties"; // consiglio sonarqube...strano
 
     @HROnly
     public TabellaPosizioniAperteBean getTabellaPosizioniAperte(CredentialsHRBean cred) throws TaskException {
@@ -101,7 +102,7 @@ public class GestisciPosizioniAperteController {
         }
     }
     private void getDao() throws IOException {
-        InputStream input = new FileInputStream("resources/DAO.properties");
+        InputStream input = new FileInputStream(path);
 
         Properties properties = new Properties();
         properties.load(input);
@@ -188,7 +189,7 @@ public class GestisciPosizioniAperteController {
             PosizioniAperteDAO dao1 = null;
             PosizioniAperteDAO dao2  = null;
 
-            InputStream input = new FileInputStream("resources/DAO.properties");
+            InputStream input = new FileInputStream(path);
 
             Properties properties = new Properties();
             properties.load(input);
@@ -210,7 +211,7 @@ public class GestisciPosizioniAperteController {
                     throw new TaskException("Opcode errato, scegliere tra 1 o 2");
                 }
 
-                FileOutputStream output = new FileOutputStream("resources/DAO.properties");
+                FileOutputStream output = new FileOutputStream(path);
                 properties.store(output,null);
                 // sposta dati
                 List<PosizioneBean> posizioni = dao1.getPosizioniAperte();
