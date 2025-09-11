@@ -15,6 +15,10 @@ import java.util.List;
 
 public class OsservazioniDAO{
     private ConnectionPoolInterface connectionPool;
+    private final String SoftwareDevelopment = "SoftwareDevelopment";
+    private final String DataEngineering = "DataEngineering";
+    private final String Security = "Security";
+    private final String Sales = "Sales";
     public List<OsservazioneBean> getOsservazioni(String dipartimento) throws DAOException{
         List<OsservazioneBean> data = new ArrayList<>(0);
         OsservazioneBean oss;
@@ -26,16 +30,16 @@ public class OsservazioniDAO{
             connection = connectionPool.getConnection();
 
             switch(dipartimento){
-                case "SoftwareDevelopment":
+                case SoftwareDevelopment:
                     rs = OsservazioniQueries.getSDOsservazioni(connection);
                     break;
-                case "DataEngineering":
+                case DataEngineering:
                     rs = OsservazioniQueries.getDEOsservazioni(connection);
                     break;
-                case "Security":
+                case Security:
                     rs = OsservazioniQueries.getSecOsservazioni(connection);
                     break;
-                case "Sales":
+                case Sales:
                     rs = OsservazioniQueries.getSalOsservazioni(connection);
                     break;
                 default:
@@ -70,16 +74,16 @@ public class OsservazioniDAO{
             connection = connectionPool.getConnection();
 
             switch (osservazione.getDipartimento()) {
-                case "SoftwareDevelopment":
+                case SoftwareDevelopment:
                     OsservazioniQueries.elimSDOsservazione(connection, osservazione);
                     break;
-                case "DataEngineering":
+                case DataEngineering:
                     OsservazioniQueries.elimDEOsservazione(connection, osservazione);
                     break;
-                case "Security":
+                case Security:
                     OsservazioniQueries.elimSecOsservazione(connection, osservazione);
                     break;
-                case "Sales":
+                case Sales:
                     OsservazioniQueries.elimSalOsservazione(connection, osservazione);
                     break;
                 default:
@@ -102,16 +106,16 @@ public class OsservazioniDAO{
             connection = connectionPool.getConnection();
 
             switch (osservazione.getDipartimento()) {
-                case "SoftwareDevelopment":
+                case SoftwareDevelopment:
                         OsservazioniQueries.addSDOsservazione(connection, osservazione);
                         break;
-                case "DataEngineering":
+                case DataEngineering:
                     OsservazioniQueries.addDEOsservazione(connection, osservazione);
                     break;
-                case "Security":
+                case Security:
                     OsservazioniQueries.addSecOsservazione(connection, osservazione);
                     break;
-                case "Sales":
+                case Sales:
                     OsservazioniQueries.addSalOsservazione(connection, osservazione);
                     break;
                 default:

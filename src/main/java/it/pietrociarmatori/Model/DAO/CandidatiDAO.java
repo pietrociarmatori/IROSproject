@@ -13,6 +13,10 @@ import java.util.List;
 
 public class CandidatiDAO {
     private ConnectionPoolInterface connectionPool;
+    private final String idoneo = "idoneo";
+    private final String nonidoneo = "nonidoneo";
+    private final String davalutare = "davalutare";
+
     public List<CandidatoBean> getCandidati(String idoneita) throws DAOException{
         List<CandidatoBean> data = new ArrayList<>(0);
         CandidatoBean cand;
@@ -25,15 +29,15 @@ public class CandidatiDAO {
             connection = connectionPool.getConnection();
 
             switch(idoneita){
-                case "idoneo":
+                case idoneo:
                     rs = CandidatiQueries.getCandidatiIdonei(connection);
                     type = 0;
                     break;
-                case "nonidoneo":
+                case nonidoneo:
                     rs = CandidatiQueries.getCandidatiNonIdonei(connection);
                     type = 1;
                     break;
-                case "davalutare":
+                case davalutare:
                     rs = CandidatiQueries.getCandidatiDaValutare(connection);
                     type = 2;
                     break;
@@ -83,13 +87,13 @@ public class CandidatiDAO {
             connection = connectionPool.getConnection();
 
             switch(candidato.getIdoneita()){
-                case "idoneo":
+                case idoneo:
                     CandidatiQueries.eraseCandidatoIdoneo(connection, candidato);
                     break;
-                case "nonidoneo":
+                case nonidoneo:
                     CandidatiQueries.eraseCandidatoNonIdoneo(connection, candidato);
                     break;
-                case "davalutare":
+                case davalutare:
                     CandidatiQueries.eraseCandidatoDaValutare(connection, candidato);
                     break;
                 default:
@@ -112,13 +116,13 @@ public class CandidatiDAO {
             connection = connectionPool.getConnection();
 
             switch(candidato.getIdoneita()){
-                case "idoneo":
+                case idoneo:
                     CandidatiQueries.addCandidatoIdoneo(connection, candidato);
                     break;
-                case "nonidoneo":
+                case nonidoneo:
                     CandidatiQueries.addCandidatoNonIdoneo(connection, candidato);
                     break;
-                case "davalutare":
+                case davalutare:
                     CandidatiQueries.addCandidatoDaValutare(connection, candidato);
                     break;
                 default:
@@ -141,13 +145,13 @@ public class CandidatiDAO {
             connection = connectionPool.getConnection();
 
             switch(candidato.getIdoneita()){
-                case "idoneo":
+                case idoneo:
                     CandidatiQueries.aggiungiMailDiRispostaCandidatoIdoneo(connection, candidato);
                     break;
-                case "nonidoneo":
+                case nonidoneo:
                     CandidatiQueries.aggiungiMailDiRispostaCandidatoNonIdoneo(connection, candidato);
                     break;
-                case "davalutare":
+                case davalutare:
                     CandidatiQueries.aggiungiMailDiRispostaCandidatoDaValutare(connection, candidato);
                     break;
                 default:
