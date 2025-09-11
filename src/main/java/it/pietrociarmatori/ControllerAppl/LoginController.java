@@ -46,9 +46,6 @@ public class LoginController {
             }
 
             ul = new UvicornLauncher("resources/launcher.properties",
-                    "APP",
-                    "WITH",
-                    "COMMAND",
                     "DIR");
 
             ul.launch(listener);
