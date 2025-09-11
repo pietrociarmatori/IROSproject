@@ -20,7 +20,10 @@ public class HuggingFaceClient {
     public void executeIAService() throws IAServiceException{
         try {
             this.resultIA = strategy.execute(params);
-        }catch(IOException | InterruptedException e){
+        }catch(IOException e){
+            throw new IAServiceException("Impossibile procedere con il servizio");
+        }catch(InterruptedException e){
+            Thread.currentThread().interrupt();
             throw new IAServiceException("Impossibile procedere con il servizio");
         }
     }
