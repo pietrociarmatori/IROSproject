@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 // Utilizzando PreparedStatement mitigo sql injection
 public class OsservazioniQueries {
+    private static final String valuesAdd = "    VALUES (?, ?, ?);";
     public static ResultSet getSDOsservazioni(Connection connection) throws SQLException{
         String sql = "SELECT \n" +
                 "        d.Matricola,\n" +
@@ -71,30 +72,24 @@ public class OsservazioniQueries {
     public static void elimSDOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "DELETE FROM SoftwareDevelopmentOsservazioni WHERE ID = ?;";
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, Integer.parseInt(oss.getID()));
-            ps.executeUpdate();
-        }
+        elimOsservazioneX(connection, oss, sql);
     }
     public static void elimDEOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "DELETE FROM DataEngineeringOsservazioni WHERE ID = ?;";
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, Integer.parseInt(oss.getID()));
-            ps.executeUpdate();
-        }
+        elimOsservazioneX(connection, oss, sql);
     }
     public static void elimSecOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "DELETE FROM SecurityOsservazioni WHERE ID = ?;";
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, Integer.parseInt(oss.getID()));
-            ps.executeUpdate();
-        }
+        elimOsservazioneX(connection, oss, sql);
     }
     public static void elimSalOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "DELETE FROM SalesOsservazioni WHERE ID = ?;";
 
+        elimOsservazioneX(connection, oss, sql);
+    }
+    private static void elimOsservazioneX(Connection connection, OsservazioneBean oss, String sql)throws SQLException{
         try(PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, Integer.parseInt(oss.getID()));
             ps.executeUpdate();
@@ -102,41 +97,29 @@ public class OsservazioniQueries {
     }
     public static void addSDOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO SoftwareDevelopmentOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                "    VALUES (?, ?, ?);";
+                valuesAdd;
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, Integer.parseInt(oss.getMatricola()));
-            ps.setString(2, oss.getOsservazione());
-            ps.setString(3, oss.getSentiment());
-            ps.executeUpdate();
-        }
+        addOsservazioneX(connection, oss, sql);
     }
     public static void addDEOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO DataEngineeringOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                "    VALUES (?, ?, ?);";
+                valuesAdd;
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, Integer.parseInt(oss.getMatricola()));
-            ps.setString(2, oss.getOsservazione());
-            ps.setString(3, oss.getSentiment());
-            ps.executeUpdate();
-        }
+        addOsservazioneX(connection, oss, sql);
     }
     public static void addSecOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO SecurityOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                "    VALUES (?, ?, ?);";
+                valuesAdd;
 
-        try(PreparedStatement ps = connection.prepareStatement(sql)){
-            ps.setInt(1, Integer.parseInt(oss.getMatricola()));
-            ps.setString(2, oss.getOsservazione());
-            ps.setString(3, oss.getSentiment());
-            ps.executeUpdate();
-        }
+        addOsservazioneX(connection, oss, sql);
     }
     public static void addSalOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO SalesOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                "    VALUES (?, ?, ?);";
+                valuesAdd;
 
+        addOsservazioneX(connection, oss, sql);
+    }
+    private static void addOsservazioneX(Connection connection, OsservazioneBean oss, String sql)throws SQLException{
         try(PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, Integer.parseInt(oss.getMatricola()));
             ps.setString(2, oss.getOsservazione());

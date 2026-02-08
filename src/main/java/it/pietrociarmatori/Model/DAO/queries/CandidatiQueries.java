@@ -30,7 +30,7 @@ public class CandidatiQueries {
         addCandidatoX(connection, candidato, sql);
     }
 
-    public static void addCandidatoX(Connection connection, CandidatoBean candidato, String sql) throws SQLException {
+    private static void addCandidatoX(Connection connection, CandidatoBean candidato, String sql) throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, candidato.getNome());
             ps.setString(2, candidato.getCognome());
@@ -45,26 +45,20 @@ public class CandidatiQueries {
     public static void aggiungiMailDiRispostaCandidatoIdoneo(Connection connection, CandidatoBean candidato) throws SQLException{
         String sql = "UPDATE CandidatiIdonei SET MailDiRisposta = ? WHERE IndirizzoMailCandidato = ?;";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, candidato.getMailDiRisposta());
-            ps.setString(2, candidato.getIndirizzoMailCandidato());
-
-            ps.executeUpdate();
-        }
+        aggiungiMailCandidatoX(connection, candidato, sql);
     }
     public static void aggiungiMailDiRispostaCandidatoNonIdoneo(Connection connection, CandidatoBean candidato) throws SQLException{
         String sql = "UPDATE CandidatiNonIdonei SET MailDiRisposta = ? WHERE IndirizzoMailCandidato = ?;";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, candidato.getMailDiRisposta());
-            ps.setString(2, candidato.getIndirizzoMailCandidato());
-
-            ps.executeUpdate();
-        }
+        aggiungiMailCandidatoX(connection, candidato, sql);
     }
     public static void aggiungiMailDiRispostaCandidatoDaValutare(Connection connection, CandidatoBean candidato) throws SQLException{
         String sql = "UPDATE CandidatiDaValutare SET MailDiRisposta = ? WHERE IndirizzoMailCandidato = ?;";
 
+        aggiungiMailCandidatoX(connection, candidato, sql);
+    }
+
+    private static void aggiungiMailCandidatoX(Connection connection, CandidatoBean candidato, String sql)throws SQLException{
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, candidato.getMailDiRisposta());
             ps.setString(2, candidato.getIndirizzoMailCandidato());
@@ -75,24 +69,19 @@ public class CandidatiQueries {
     public static void eraseCandidatoIdoneo(Connection connection, CandidatoBean candidato) throws SQLException{
         String sql = "DELETE FROM CandidatiIdonei WHERE IndirizzoMailCandidato = ?;";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, candidato.getIndirizzoMailCandidato());
-
-            ps.executeUpdate();
-        }
+        eraseCandidatoX(connection, candidato, sql);
     }
     public static void eraseCandidatoNonIdoneo(Connection connection, CandidatoBean candidato) throws SQLException{
         String sql = "DELETE FROM CandidatiNonIdonei WHERE IndirizzoMailCandidato = ?;";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, candidato.getIndirizzoMailCandidato());
-
-            ps.executeUpdate();
-        }
+        eraseCandidatoX(connection, candidato, sql);
     }
     public static void eraseCandidatoDaValutare(Connection connection, CandidatoBean candidato) throws SQLException{
         String sql = "DELETE FROM CandidatiDaValutare WHERE IndirizzoMailCandidato = ?;";
 
+        eraseCandidatoX(connection, candidato, sql);
+    }
+    private static void eraseCandidatoX(Connection connection, CandidatoBean candidato, String sql) throws SQLException{
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, candidato.getIndirizzoMailCandidato());
 
