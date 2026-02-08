@@ -181,27 +181,8 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
     // Comune a tutte le schermate con l'icona del profilo
     public void handleProfile(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/ProfileInfo.fxml"));
-            Parent sidePanel = loader.load();
-
-            // Position it: (bigWidth - smallWidth)
-            double bigWidth = 1200;
-            double smallWidth = 350; // match prefWidth in FXML
-            sidePanel.setLayoutX(bigWidth - smallWidth);
-            sidePanel.setLayoutY(0);
-
-
-            // Give sidePanel access to parent for closing
-            View1ProfileDataController controller = loader.getController();
-            controller.setParent(Root, sidePanel);
-            controller.setData(this.sessionHR);
-
-            Root.getChildren().add(sidePanel);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ProfileButtonRenderer pbr = new ProfileButtonRenderer();
+        pbr.renderProfile(this.Root, this.sessionHR);
     }
 
     public void handlePubblica(ActionEvent event){

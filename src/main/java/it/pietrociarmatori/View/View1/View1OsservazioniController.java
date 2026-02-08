@@ -61,8 +61,9 @@ public class View1OsservazioniController implements ControlledScreen{
 
     private SessionHR sessionHR;
     private TabellaOsservazioniBean tob;
-    private final String PathSingolaOsservazione = "/Fxml/SingolaOsservazione.fxml";
     private final String PathHRHome = "/Fxml/HRhome.fxml";
+
+    private final String DIPARTIMENTO = "Dipartimento: ";
     @Override
     public void onShow(Object data) {
         sessionHR = (SessionHR) data;
@@ -77,27 +78,8 @@ public class View1OsservazioniController implements ControlledScreen{
 
     // Comune a tutte le schermate con l'icona del profilo
     public void handleProfile(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/ProfileInfo.fxml"));
-            Parent sidePanel = loader.load();
-
-            // Position it: (bigWidth - smallWidth)
-            double bigWidth = 1200;
-            double smallWidth = 350; // match prefWidth in FXML
-            sidePanel.setLayoutX(bigWidth - smallWidth);
-            sidePanel.setLayoutY(0);
-
-
-            // Give sidePanel access to parent for closing
-            View1ProfileDataController controller = loader.getController();
-            controller.setParent(Root, sidePanel);
-            controller.setData(this.sessionHR);
-
-            Root.getChildren().add(sidePanel);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ProfileButtonRenderer pbr = new ProfileButtonRenderer();
+        pbr.renderProfile(this.Root, this.sessionHR);
     }
 
     public void handlePubblica(ActionEvent event) {
@@ -108,7 +90,7 @@ public class View1OsservazioniController implements ControlledScreen{
 
             String provvedimento = ProvvedimentotextArea.getText();
             String dipartimento = DipartimentoLabel.getText();
-            dipartimento = dipartimento.replace("Dipartimento: ", "");
+            dipartimento = dipartimento.replace(DIPARTIMENTO, "");
 
             provv.setDipartimento(dipartimento);
             provv.setProvvedimento(provvedimento);
@@ -137,29 +119,7 @@ public class View1OsservazioniController implements ControlledScreen{
         Map<String, OsservazioniDipartimento> tabella = tob.getTabella();
         OsservazioniDipartimento od = tabella.get("SoftwareDevelopment");
 
-        DipartimentoLabel.setText("Dipartimento: "+od.getNomeDipartimento());
-        SentimentLabel.setText("Sentiment generale: "+od.getSentimentGenerale());
-        RiassuntoLabel.setText("Riassunto: "+od.getRiassuntoOsservazioni());
-
-        List<OsservazioneBean> listaOsservazioni = od.getListaOsservazioni();
-
-        for(OsservazioneBean osservazione : listaOsservazioni){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
-                Node element = loader.load();
-
-                View1SingolaOsservazioneController controller = loader.getController();
-                controller.setParent(OsservazioniContainer, element);
-                controller.setOsservazione(osservazione, sessionHR);
-                controller.showOsservazione();
-
-                // fai l'append al VBox
-                OsservazioniContainer.getChildren().add(element);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        renderButton(od);
     }
 
     public void handleDataEngButton(ActionEvent event) {
@@ -171,29 +131,7 @@ public class View1OsservazioniController implements ControlledScreen{
         Map<String, OsservazioniDipartimento> tabella = tob.getTabella();
         OsservazioniDipartimento od = tabella.get("DataEngineering");
 
-        DipartimentoLabel.setText("Dipartimento: "+od.getNomeDipartimento());
-        SentimentLabel.setText("Sentiment generale: "+od.getSentimentGenerale());
-        RiassuntoLabel.setText("Riassunto: "+od.getRiassuntoOsservazioni());
-
-        List<OsservazioneBean> listaOsservazioni = od.getListaOsservazioni();
-
-        for(OsservazioneBean osservazione : listaOsservazioni){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
-                Node element = loader.load();
-
-                View1SingolaOsservazioneController controller = loader.getController();
-                controller.setParent(OsservazioniContainer, element);
-                controller.setOsservazione(osservazione, sessionHR);
-                controller.showOsservazione();
-
-                // fai l'append al VBox
-                OsservazioniContainer.getChildren().add(element);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        renderButton(od);
     }
 
     public void handleSecurityButton(ActionEvent event) {
@@ -205,29 +143,7 @@ public class View1OsservazioniController implements ControlledScreen{
         Map<String, OsservazioniDipartimento> tabella = tob.getTabella();
         OsservazioniDipartimento od = tabella.get("Security");
 
-        DipartimentoLabel.setText("Dipartimento: "+od.getNomeDipartimento());
-        SentimentLabel.setText("Sentiment generale: "+od.getSentimentGenerale());
-        RiassuntoLabel.setText("Riassunto: "+od.getRiassuntoOsservazioni());
-
-        List<OsservazioneBean> listaOsservazioni = od.getListaOsservazioni();
-
-        for(OsservazioneBean osservazione : listaOsservazioni){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
-                Node element = loader.load();
-
-                View1SingolaOsservazioneController controller = loader.getController();
-                controller.setParent(OsservazioniContainer, element);
-                controller.setOsservazione(osservazione, sessionHR);
-                controller.showOsservazione();
-
-                // fai l'append al VBox
-                OsservazioniContainer.getChildren().add(element);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        renderButton(od);
     }
 
     public void handleSalesButton(ActionEvent event) {
@@ -239,15 +155,21 @@ public class View1OsservazioniController implements ControlledScreen{
         Map<String, OsservazioniDipartimento> tabella = tob.getTabella();
         OsservazioniDipartimento od = tabella.get("Sales");
 
-        DipartimentoLabel.setText("Dipartimento: "+od.getNomeDipartimento());
-        SentimentLabel.setText("Sentiment generale: "+od.getSentimentGenerale());
-        RiassuntoLabel.setText("Riassunto: "+od.getRiassuntoOsservazioni());
+        renderButton(od);
+    }
+    private void renderButton(OsservazioniDipartimento od){
+        DipartimentoLabel.setText(DIPARTIMENTO+od.getNomeDipartimento());
+        String SENTIMENT = "Sentiment generale: ";
+        SentimentLabel.setText(SENTIMENT +od.getSentimentGenerale());
+        String RIASSUNTO = "Riassunto: ";
+        RiassuntoLabel.setText(RIASSUNTO +od.getRiassuntoOsservazioni());
 
         List<OsservazioneBean> listaOsservazioni = od.getListaOsservazioni();
 
         for(OsservazioneBean osservazione : listaOsservazioni){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
+                String pathSingolaOsservazione = "/Fxml/SingolaOsservazione.fxml";
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathSingolaOsservazione));
                 Node element = loader.load();
 
                 View1SingolaOsservazioneController controller = loader.getController();
