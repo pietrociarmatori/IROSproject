@@ -9,23 +9,23 @@ import java.sql.SQLException;
 // Utilizzando PreparedStatement mitigo sql injection
 public class CandidatiQueries {
 
-    private static final String candidatoValues = "VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String CANDIDATOVALUES = "VALUES (?, ?, ?, ?, ?, ?)";
 
     public static void addCandidatoIdoneo(Connection connection, CandidatoBean candidato) throws SQLException {
         String sql = "INSERT INTO CandidatiIdonei (Nome, Cognome, Posizione, RequisitiPosizione, SkillCandidato, IndirizzoMailCandidato) " +
-                candidatoValues;
+                CANDIDATOVALUES;
 
         addCandidatoX(connection, candidato, sql);
     }
     public static void addCandidatoNonIdoneo(Connection connection, CandidatoBean candidato) throws SQLException {
         String sql = "INSERT INTO CandidatiNonIdonei (Nome, Cognome, Posizione, RequisitiPosizione, SkillCandidato, IndirizzoMailCandidato) " +
-                candidatoValues;
+                CANDIDATOVALUES;
 
         addCandidatoX(connection, candidato, sql);
     }
     public static void addCandidatoDaValutare(Connection connection, CandidatoBean candidato) throws SQLException {
         String sql = "INSERT INTO CandidatiDaValutare (Nome, Cognome, Posizione, RequisitiPosizione, SkillCandidato, IndirizzoMailCandidato) " +
-                candidatoValues;
+                CANDIDATOVALUES;
 
         addCandidatoX(connection, candidato, sql);
     }

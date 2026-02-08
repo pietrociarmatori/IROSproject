@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 // Utilizzando PreparedStatement mitigo sql injection
 public class OsservazioniQueries {
-    private static final String valuesAdd = "    VALUES (?, ?, ?);";
+    private static final String VALUESADD = "    VALUES (?, ?, ?);";
     public static ResultSet getSDOsservazioni(Connection connection) throws SQLException{
         String sql = "SELECT \n" +
                 "        d.Matricola,\n" +
@@ -97,25 +97,25 @@ public class OsservazioniQueries {
     }
     public static void addSDOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO SoftwareDevelopmentOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                valuesAdd;
+                VALUESADD;
 
         addOsservazioneX(connection, oss, sql);
     }
     public static void addDEOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO DataEngineeringOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                valuesAdd;
+                VALUESADD;
 
         addOsservazioneX(connection, oss, sql);
     }
     public static void addSecOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO SecurityOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                valuesAdd;
+                VALUESADD;
 
         addOsservazioneX(connection, oss, sql);
     }
     public static void addSalOsservazione(Connection connection, OsservazioneBean oss) throws SQLException{
         String sql = "INSERT INTO SalesOsservazioni (Matricola, Osservazione, Sentiment)\n" +
-                valuesAdd;
+                VALUESADD;
 
         addOsservazioneX(connection, oss, sql);
     }
