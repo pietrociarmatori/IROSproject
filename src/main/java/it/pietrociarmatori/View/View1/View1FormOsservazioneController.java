@@ -1,6 +1,7 @@
 package it.pietrociarmatori.View.View1;
 
 import it.pietrociarmatori.ControllerAppl.AggiungiOsservazioneController;
+import it.pietrociarmatori.ControllerAppl.LoginController;
 import it.pietrociarmatori.Exceptions.TaskException;
 import it.pietrociarmatori.Model.Beans.OsservazioneBean;
 import it.pietrociarmatori.View.SessionEmployee;
@@ -68,6 +69,11 @@ public class View1FormOsservazioneController implements ControlledScreen{
         PasswordLabel.setText("Password: "+session.getCred().getPassword());
     }
 
+    public void handleLogout(ActionEvent event){
+        LoginController lc = new LoginController();
+        lc.logout(session.getCred());
+        App.getSceneManager().switchTo("login", "/Fxml/Login.fxml");
+    }
     public SessionEmployee getSession() {
         return session;
     }

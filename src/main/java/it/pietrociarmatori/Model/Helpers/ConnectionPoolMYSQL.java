@@ -64,6 +64,7 @@ public class ConnectionPoolMYSQL implements ConnectionPoolInterface {
             conn = DriverManager.getConnection(connection_url, user, passwd);
 
         } catch (IOException | SQLException e){
+            e.printStackTrace(); // DEBUG
             throw new ConnectionPoolException("Impossibile creare nuova connessione");
         }
 

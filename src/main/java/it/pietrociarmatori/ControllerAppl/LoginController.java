@@ -20,6 +20,8 @@ import java.security.GeneralSecurityException;
 // questo controller regola il login: crea una login dao, e chiede alla factory di creare una bean contente
 // i dettagli dell'utente che si è loggato. Questa bean viene ritrnata dal suo metodo e consegnata all'esterno
 // del sistema
+// poi sebbene il logout sia l'opposto del login, reputo che dare a questo controller il compito del logout
+// rispetti comunque il principio di high cohesion in quanto reputo siano due azioni attinenti allo stesso campo
 
 // QUESTO CONTROLLER DEVE LANCIARE ANCHE IL SINGLETON GMAIL LISTENER E LO SCRIPT BASH CHE AVVIA IL SERVER FAST API IN PYTHON
 public class LoginController {
@@ -50,9 +52,17 @@ public class LoginController {
 
             ul.launch(listener);
 
+            AuthService auth = AuthService.getInstance();
+            auth.addActive(cred);
+
         } catch(DAOException | GmailServiceException e){
             throw new LoginException(e.getMessage());
         }
         return cred;
+    }
+
+    public void logout(Credentials cred){
+        AuthService auth = AuthService.getInstance();
+        auth.removeActive(cred);
     }
 }

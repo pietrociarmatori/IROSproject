@@ -29,7 +29,7 @@ public class AggiungiOsservazioneController {
         OsservazioniDAO dao = null;
 
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isDipendente(cred)) {
                 throw new SecurityException();
             }

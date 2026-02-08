@@ -57,6 +57,7 @@ public class OsservazioniDAO{
                 oss.setID(String.valueOf(rs.getInt(7)));
                 data.add(oss);
             }
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile eliminare il candidato dal database");
@@ -90,6 +91,7 @@ public class OsservazioniDAO{
                         throw new DAOException("Valore di dipartimento non valido: " + osservazione.getDipartimento());
             };
 
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile eliminare il candidato dal database");
@@ -121,6 +123,7 @@ public class OsservazioniDAO{
                 default:
                         throw new DAOException("Valore di dipartimento non valido: " + osservazione.getDipartimento());
             };
+            connectionPool.releaseConnection(connection);
 
         }catch(SQLException e) {
 

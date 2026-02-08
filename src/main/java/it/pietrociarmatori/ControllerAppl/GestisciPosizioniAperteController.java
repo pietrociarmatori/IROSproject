@@ -26,7 +26,7 @@ import java.util.Properties;
 // pubblici intenzionalmente. I Wrappers iniziano a circa riga 114 CAMBIARE RIGA SE SI EFFETTUANO MODIFICHE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class GestisciPosizioniAperteController {
     private PosizioniAperteDAO dao;
-    private String path = "resources/DAO.properties"; // consiglio sonarqube...strano
+    private final String path = "resources/DAO.properties"; // consiglio sonarqube...strano
 
     @HROnly
     public TabellaPosizioniAperteBean getTabellaPosizioniAperte(CredentialsHRBean cred) throws TaskException {
@@ -34,7 +34,7 @@ public class GestisciPosizioniAperteController {
         AuthService auth = null;
         TabellaPosizioniAperteBean tpa = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -62,7 +62,7 @@ public class GestisciPosizioniAperteController {
     public void addPosizioneAperta(CredentialsHRBean cred, PosizioneBean posizione) throws TaskException {
         AuthService auth = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -84,7 +84,7 @@ public class GestisciPosizioniAperteController {
     public void deletePosizioneAperta(CredentialsHRBean cred, PosizioneBean posizione) throws TaskException {
         AuthService auth = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -124,7 +124,7 @@ public class GestisciPosizioniAperteController {
         AuthService auth = null;
         TabellaPosizioniAperteBean tpa = null;
         try{
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -132,8 +132,6 @@ public class GestisciPosizioniAperteController {
             tryChangeDB(opCodeDAO);
             tpa = getTabellaPosizioniAperte(cred);
 
-        } catch (DAOException e) {
-            throw new TaskException("Errore durante l'estrazione delle posizioni", e);
         }catch(SecurityException e){
             throw new TaskException(e);
         }
@@ -146,7 +144,7 @@ public class GestisciPosizioniAperteController {
     public void deletePosizioneAperta(CredentialsHRBean cred, PosizioneBean pos, String opCodeDAO) throws TaskException{
         AuthService auth = null;
         try{
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -154,8 +152,6 @@ public class GestisciPosizioniAperteController {
             tryChangeDB(opCodeDAO);
             deletePosizioneAperta(cred, pos);
 
-        } catch (DAOException e) {
-            throw new TaskException("Errore durante l'eliminazione della posizione", e);
         }catch(SecurityException e){
             throw new TaskException(e);
         }
@@ -168,7 +164,7 @@ public class GestisciPosizioniAperteController {
     public void addPosizioneAperta(CredentialsHRBean cred, PosizioneBean pos, String opCodeDAO) throws TaskException{
         AuthService auth = null;
         try{
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -176,8 +172,6 @@ public class GestisciPosizioniAperteController {
             tryChangeDB(opCodeDAO);
             addPosizioneAperta(cred, pos);
 
-        } catch (DAOException e) {
-            throw new TaskException("Errore durante l'aggiunta della posizione", e);
         }catch(SecurityException e){
             throw new TaskException(e);
         }
@@ -218,6 +212,9 @@ public class GestisciPosizioniAperteController {
 
                 for(PosizioneBean p: posizioni){
                     dao2.addPosizioneAperta(p);
+                }
+
+                for(PosizioneBean p: posizioni){
                     dao1.deletePosizioneAperta(p);
                 }
             }

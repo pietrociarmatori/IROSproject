@@ -70,6 +70,7 @@ public class CandidatiDAO {
 
                 data.add(cand);
             }
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile ottenere il candidato dal database");
@@ -100,6 +101,7 @@ public class CandidatiDAO {
                     throw new DAOException("Valore di idoneità non valido: " + candidato.getIdoneita());
             }
 
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile eliminare il candidato dal database");
@@ -129,6 +131,7 @@ public class CandidatiDAO {
                     throw new DAOException("Valore di idoneità non valido: " + candidato.getIdoneita());
             }
 
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile aggiungere il candidato al database");
@@ -158,6 +161,7 @@ public class CandidatiDAO {
                     throw new DAOException("Valore di idoneità non valido: " + candidato.getIdoneita());
             }
 
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile aggiungere mail verso candidato nel database");

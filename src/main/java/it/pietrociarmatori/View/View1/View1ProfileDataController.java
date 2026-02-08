@@ -1,5 +1,6 @@
 package it.pietrociarmatori.View.View1;
 
+import it.pietrociarmatori.ControllerAppl.LoginController;
 import it.pietrociarmatori.View.SessionHR;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,10 +27,12 @@ public class View1ProfileDataController {
     @FXML
     private Button CloseButton;
 
+    private SessionHR sessionHR;
     private Pane parent;
     private Node self;
 
     public void setData(SessionHR sessionHR){
+        this.sessionHR = sessionHR;
         NomeLabel.setText("Nome: "+sessionHR.getCred().getNome());
         CognomeLabel.setText("Cognome: "+sessionHR.getCred().getCognome());
         RuoloLabel.setText("Ruolo: "+sessionHR.getCred().getRuolo());
@@ -39,6 +42,8 @@ public class View1ProfileDataController {
     }
 
     public void handleLogout(ActionEvent event) {
+        LoginController lc = new LoginController();
+        lc.logout(sessionHR.getCred());
         App.getSceneManager().switchTo("login", "/Fxml/Login.fxml");
     }
     public void setParent(Pane parent, Node self) {

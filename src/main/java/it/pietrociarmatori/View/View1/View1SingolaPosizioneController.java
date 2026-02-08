@@ -4,6 +4,7 @@ import it.pietrociarmatori.ControllerAppl.GestisciPosizioniAperteController;
 import it.pietrociarmatori.Exceptions.TaskException;
 import it.pietrociarmatori.Model.Beans.PosizioneBean;
 import it.pietrociarmatori.View.SessionHR;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -44,19 +45,34 @@ public class View1SingolaPosizioneController{
     }
 
     public void handleEliminaButton(ActionEvent event){
-        try {
-            // chiama il controller per eliminare l'osservazione
-            GestisciPosizioniAperteController gpac = new GestisciPosizioniAperteController();
-            gpac.deletePosizioneAperta(sessionHR.getCred(), pd, parentController.getopcode());
-            if (parent != null && self != null) {
-                parent.getChildren().remove(self);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                GestisciPosizioniAperteController gpac =
+                        new GestisciPosizioniAperteController();
+
+                gpac.deletePosizioneAperta(
+                        sessionHR.getCred(),
+                        pd,
+                        parentController.getopcode()
+                );
+                return null;
             }
-            NotifyBackendLogs nbl = new NotifyBackendLogs();
-            nbl.notifyLog("Posizione eliminata!");
-        }catch(TaskException e){
-            NotifyBackendLogs nbe = new NotifyBackendLogs();
-            nbe.notifyError(e.getMessage());
-        }
+        };
+
+        task.setOnSucceeded(e -> {
+            parent.getChildren().remove(self);
+            new NotifyBackendLogs().notifyLog("Posizione eliminata!");
+        });
+
+        task.setOnFailed(e -> {
+            Throwable ex = task.getException();
+            new NotifyBackendLogs().notifyError(
+                    ex != null ? ex.getMessage() : "Errore durante eliminazione"
+            );
+        });
+
+        new Thread(task).start();
     }
     public void setReference(View1PosizioniAperteController controller){
         this.parentController = controller;

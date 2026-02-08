@@ -6,6 +6,7 @@ import it.pietrociarmatori.Model.Beans.PosizioneBean;
 import it.pietrociarmatori.Model.Beans.TabellaPosizioniAperteBean;
 import it.pietrociarmatori.Model.Entity.PosizioniDipartimento;
 import it.pietrociarmatori.View.SessionHR;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,7 +56,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
     private SessionHR sessionHR;
     private TabellaPosizioniAperteBean tpa;
     private String opcode = "1";
-    private final String PathSingolaOsservazione = "/Fxml/SingolaOsservazione.fxml";
+    private final String PathSingolaPosizione = "/Fxml/SingolaPosizione.fxml";
     private final String PathHRHome = "/Fxml/HRhome.fxml";
 
     public String getopcode(){
@@ -71,7 +72,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaPosizione)); // cambiato da PathSingolaOsservazione a PathSingolaPosizione
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -97,7 +98,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaPosizione)); // cambiato da PathSingolaOsservazione a PathSingolaPosizione
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -123,7 +124,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaPosizione)); // cambiato da PathSingolaOsservazione a PathSingolaPosizione
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -149,7 +150,7 @@ public class View1PosizioniAperteController implements ControlledScreen{
 
         for(PosizioneBean posizione : listaPosizioni){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaOsservazione));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(PathSingolaPosizione)); // cambiato da PathSingolaOsservazione a PathSingolaPosizione
                 Node element = loader.load();
 
                 View1SingolaPosizioneController controller = loader.getController();
@@ -232,7 +233,6 @@ public class View1PosizioniAperteController implements ControlledScreen{
         }
     }
     public void handleSwap(ActionEvent event){
-        try {
             if (opcode.equals("1")) {
                 opcode = "2";
                 NotifyBackendLogs nbl = new NotifyBackendLogs();
@@ -242,11 +242,26 @@ public class View1PosizioniAperteController implements ControlledScreen{
                 NotifyBackendLogs nbl = new NotifyBackendLogs();
                 nbl.notifyLog("Modalità JDBC!");
             }
+            /*
+            MIGLIORAMENTO: Essenzialmente faccio eseguire ad un thread separato queste righe in questo modo
+                           lo swap del DB non avviene su un thread JAVAFX ma su un thread JAVA
             GestisciPosizioniAperteController gpac = new GestisciPosizioniAperteController();
             tpa = gpac.getTabellaPosizioniAperte(sessionHR.getCred(), opcode);
-        }catch(TaskException e){
-            NotifyBackendLogs nbe = new NotifyBackendLogs();
-            nbe.notifyError(e.getMessage());
-        }
+            */
+
+            new Thread(() -> {
+                try {
+                    GestisciPosizioniAperteController gpac = new GestisciPosizioniAperteController();
+                    TabellaPosizioniAperteBean nuova =
+                            gpac.getTabellaPosizioniAperte(sessionHR.getCred(), opcode);
+
+                    Platform.runLater(() -> tpa = nuova);
+
+                } catch (TaskException e) {
+                    Platform.runLater(() ->
+                            new NotifyBackendLogs().notifyError(e.getMessage())
+                    );
+                }
+            }).start();
     }
 }

@@ -26,7 +26,7 @@ public class GeneraMailDiRispostaController {
         HuggingFaceClient hfc = null;
         EmailBean mail = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -46,8 +46,8 @@ public class GeneraMailDiRispostaController {
             hfc.setStrategy(new IAGenerateEmail());
             hfc.executeIAService();
             mail.setEmail(hfc.getResultIA().get("email"));
-        }catch(DAOException | IAServiceException e){
-            throw new TaskException("Errore durante la pubblicazione dell'osservazione", e);
+        }catch(IAServiceException e){
+            throw new TaskException("Errore durante la pubblicazione dell'osservazione, servizio IA non disponibile", e);
         }catch(SecurityException e){
             throw new TaskException(e);
         }

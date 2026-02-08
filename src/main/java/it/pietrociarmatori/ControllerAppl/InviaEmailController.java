@@ -20,7 +20,7 @@ public class InviaEmailController {
         AuthService auth;
         CandidatiDAO dao;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }

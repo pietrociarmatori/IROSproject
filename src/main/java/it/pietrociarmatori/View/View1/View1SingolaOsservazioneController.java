@@ -4,6 +4,7 @@ import it.pietrociarmatori.ControllerAppl.GestisciOsservazioniDipendentiControll
 import it.pietrociarmatori.Exceptions.TaskException;
 import it.pietrociarmatori.Model.Beans.OsservazioneBean;
 import it.pietrociarmatori.View.SessionHR;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -31,19 +32,31 @@ public class View1SingolaOsservazioneController {
     private SessionHR sessionHR;
 
     public void handleEliminaButton(ActionEvent event){
-        try {
-            // chiama il controller per eliminare l'osservazione
-            GestisciOsservazioniDipendentiController godc = new GestisciOsservazioniDipendentiController();
-            godc.deleteOsservazione(sessionHR.getCred(), od);
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                GestisciOsservazioniDipendentiController godc =
+                        new GestisciOsservazioniDipendentiController();
+                godc.deleteOsservazione(sessionHR.getCred(), od);
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(e -> {
             if (parent != null && self != null) {
                 parent.getChildren().remove(self);
             }
-            NotifyBackendLogs nbl = new NotifyBackendLogs();
-            nbl.notifyLog("Osservazione eliminata!");
-        }catch(TaskException e){
-            NotifyBackendLogs nbe = new NotifyBackendLogs();
-            nbe.notifyError(e.getMessage());
-        }
+            new NotifyBackendLogs().notifyLog("Osservazione eliminata!");
+        });
+
+        task.setOnFailed(e -> {
+            Throwable ex = task.getException();
+            new NotifyBackendLogs().notifyError(
+                    ex != null ? ex.getMessage() : "Errore eliminazione"
+            );
+        });
+
+        new Thread(task).start();
     }
     public void setOsservazione(OsservazioneBean od, SessionHR session){
         this.od = od;

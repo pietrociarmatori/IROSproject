@@ -27,11 +27,11 @@ public class OsservazioniDipartimentoOverviewDAO {
             OverviewDipartimentoQueries.aggiungiRiassunto(connection, dip, riass);
             OverviewDipartimentoQueries.aggiungiSentiment(connection, dip, sentiment);
 
-        }catch(SQLException e) {
+            connectionPool.releaseConnection(connection);
 
+        }catch(SQLException e) {
             throw new DAOException("Impossibile eliminare il candidato dal database");
         }catch(ConnectionPoolException e){
-
             throw new DAOException(e.getMessage());
         }
     }
@@ -56,14 +56,12 @@ public class OsservazioniDipartimentoOverviewDAO {
                 overview.setSentimentGenerale(rs.getString(4));
                 data.add(overview);
             }
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
-
             throw new DAOException("Impossibile eliminare il candidato dal database");
         }catch(ConnectionPoolException e) {
-
             throw new DAOException(e.getMessage());
         }
-
         return data;
     }
 
@@ -75,11 +73,10 @@ public class OsservazioniDipartimentoOverviewDAO {
             connection = connectionPool.getConnection();
 
             OverviewDipartimentoQueries.aggiungiProvvedimenti(connection, provv);
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
-
             throw new DAOException("Impossibile aggiungere provvedimento al database");
         }catch(ConnectionPoolException e){
-
             throw new DAOException(e.getMessage());
         }
     }

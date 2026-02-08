@@ -40,3 +40,4 @@ build/
 ### Evitiamo di aggiungere api key compilate ###
 __pycache__/
 *.pyc
+tokens/

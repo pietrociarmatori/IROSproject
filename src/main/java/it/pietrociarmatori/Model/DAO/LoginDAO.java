@@ -40,6 +40,7 @@ public class LoginDAO {
                 cred.setCognome(rs.getString(5));
                 cred.setDipartimento(rs.getString(6));
             }
+            connectionPool.releaseConnection(connection);
         } catch(SQLException e) {
 
             throw new DAOException("Impossibile accedere al database");

@@ -23,7 +23,7 @@ public class GestisciCandidatiController {
         List<CandidatoBean> candidati = null;
         TabellaCandidatiBean tc = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -54,7 +54,7 @@ public class GestisciCandidatiController {
         AuthService auth = null;
         CandidatiDAO dao = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -75,7 +75,7 @@ public class GestisciCandidatiController {
         AuthService auth = null;
         CandidatiDAO dao = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }

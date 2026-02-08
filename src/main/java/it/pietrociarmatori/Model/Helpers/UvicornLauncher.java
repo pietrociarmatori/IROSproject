@@ -6,6 +6,8 @@ import it.pietrociarmatori.Model.Beans.CredentialsHRBean;
 import it.pietrociarmatori.Model.Entity.Credentials;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Properties;
 
 // avevo pensato di rendere il launcher un singleton ma,
@@ -21,6 +23,11 @@ public class UvicornLauncher {
         this.param4 = param4;
     }
     public void launch(ListenerThread listener) {
+
+        // controllo se uvicorn è già attivo
+        if(isUnicornAlive()){
+            return;
+        }
         new Thread(() -> {
                     while (running) {
                         Process process = null;
@@ -89,6 +96,19 @@ public class UvicornLauncher {
         );
         pb.directory(new File(properties.getProperty(param4)));
         return pb;
+    }
+
+    private boolean isUnicornAlive(){
+        try{
+            URL url = new URL("http://127.0.0.1:8000/");
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setConnectTimeout(500);
+            con.setReadTimeout(500);
+            con.connect();
+            return con.getResponseCode() == 200;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     public void stop() { // in caso servisse

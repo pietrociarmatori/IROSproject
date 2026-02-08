@@ -33,6 +33,7 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
                 pos.setRequisiti(rs.getString(3));
                 data.add(pos);
             }
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile eliminare il candidato dal database");
@@ -53,6 +54,8 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
 
             PosizioniQueries.aggiungiPosizione(connection, pos);
 
+            connectionPool.releaseConnection(connection);
+
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile eliminare il candidato dal database");
@@ -70,6 +73,8 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
             connection = connectionPool.getConnection();
 
             PosizioniQueries.eliminaPosizione(connection, pos);
+
+            connectionPool.releaseConnection(connection);
 
         }catch(SQLException e) {
 
@@ -93,6 +98,7 @@ public class PosizioniAperteDAOJDBC implements PosizioniAperteDAO {
             while(rs.next()){
                 requisiti = rs.getString(1);
             }
+            connectionPool.releaseConnection(connection);
         }catch(SQLException e) {
 
             throw new DAOException("Impossibile eliminare il candidato dal database");

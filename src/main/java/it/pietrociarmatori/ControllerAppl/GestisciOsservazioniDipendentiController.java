@@ -23,7 +23,7 @@ public class GestisciOsservazioniDipendentiController {
         List<OsservazioneBean> osservazioni = null;
         TabellaOsservazioniBean to = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }
@@ -57,7 +57,7 @@ public class GestisciOsservazioniDipendentiController {
         AuthService auth = null;
         OsservazioniDAO dao = null;
         try {
-            auth = new AuthService();
+            auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
             }

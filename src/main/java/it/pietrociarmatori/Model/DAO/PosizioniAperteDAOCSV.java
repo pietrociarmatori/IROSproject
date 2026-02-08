@@ -79,7 +79,7 @@ public class PosizioniAperteDAOCSV implements PosizioniAperteDAO {
         boolean removed = lista.removeIf(p -> p.getNomePosizione().equals(pos.getNomePosizione()));
 
         if (!removed) {
-            throw new DAOException("Posizione non trovata: " + pos.getNomePosizione());
+            throw new DAOException("Posizione non trovata: " +pos.getNomePosizione());
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CSV_FILE))) {

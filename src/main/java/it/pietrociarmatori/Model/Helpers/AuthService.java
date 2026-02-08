@@ -1,30 +1,42 @@
 package it.pietrociarmatori.Model.Helpers;
 
-import it.pietrociarmatori.Exceptions.DAOException;
 import it.pietrociarmatori.Model.Beans.CredentialsEmployeeBean;
 import it.pietrociarmatori.Model.Beans.CredentialsHRBean;
-import it.pietrociarmatori.Model.DAO.AuthDAO;
+import it.pietrociarmatori.Model.Entity.Credentials;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthService {
-   private AuthDAO auth;
-   public Boolean isDipendente(CredentialsEmployeeBean cred1) throws DAOException {
-       auth = new AuthDAO();
-       CredentialsEmployeeBean cred2 = auth.getDipendente(cred1);
-       // se cred1.ruolo == cred2.ruolo && cred1.ruolo != HR
-       if((cred1.getRuolo().equals(cred2.getRuolo())) && !(cred1.getRuolo().equals("HR"))){
-           return true;
-       }
-       return false;
-   }
-   public Boolean isHR(CredentialsHRBean cred1) throws DAOException{
-       auth = new AuthDAO();
-       CredentialsHRBean cred2 = auth.getHR(cred1);
-       // se cred1.ruolo == cred2.ruolo && cred1.ruolo == HR
-       if((cred1.getRuolo().equals(cred2.getRuolo())) && (cred1.getRuolo().equals("HR"))){
-           return true;
-       }
-       return false;
-   }
+    private static AuthService auth;
+    private static List<Credentials> ActiveHR;
+    private static List<Credentials> ActiveEmployee;
+    public void addActive(Credentials cred){
+        if(cred instanceof CredentialsHRBean)
+            ActiveHR.add(cred);
+        else if(cred instanceof CredentialsEmployeeBean)
+            ActiveEmployee.add(cred);
+    }
+    public void removeActive(Credentials cred){
+        if(cred instanceof CredentialsHRBean)
+            ActiveHR.remove(cred);
+        else if(cred instanceof CredentialsEmployeeBean)
+            ActiveEmployee.remove(cred);
+    }
+    public Boolean isDipendente(CredentialsEmployeeBean cred){
+       return ActiveEmployee.contains(cred);
+    }
+    public Boolean isHR(CredentialsHRBean cred){
+        return ActiveHR.contains(cred);
+    }
+    private AuthService(){
+    }
+    public static synchronized AuthService getInstance(){
+        if(auth == null){
+            auth = new AuthService();
+            ActiveEmployee = new ArrayList<>();
+            ActiveHR = new ArrayList<>();
+        }
+        return auth;
+    }
 }
