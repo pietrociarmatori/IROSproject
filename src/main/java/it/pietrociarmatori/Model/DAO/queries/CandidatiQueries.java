@@ -9,40 +9,28 @@ import java.sql.SQLException;
 // Utilizzando PreparedStatement mitigo sql injection
 public class CandidatiQueries {
 
+    private static final String candidatoValues = "VALUES (?, ?, ?, ?, ?, ?)";
+
     public static void addCandidatoIdoneo(Connection connection, CandidatoBean candidato) throws SQLException {
         String sql = "INSERT INTO CandidatiIdonei (Nome, Cognome, Posizione, RequisitiPosizione, SkillCandidato, IndirizzoMailCandidato) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                candidatoValues;
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, candidato.getNome());
-            ps.setString(2, candidato.getCognome());
-            ps.setString(3, candidato.getPosizione());
-            ps.setString(4, candidato.getRequisitiPosizione());
-            ps.setString(5, candidato.getSkillCandidato());
-            ps.setString(6, candidato.getIndirizzoMailCandidato());
-
-            ps.executeUpdate();
-        }
+        addCandidatoX(connection, candidato, sql);
     }
     public static void addCandidatoNonIdoneo(Connection connection, CandidatoBean candidato) throws SQLException {
         String sql = "INSERT INTO CandidatiNonIdonei (Nome, Cognome, Posizione, RequisitiPosizione, SkillCandidato, IndirizzoMailCandidato) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                candidatoValues;
 
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, candidato.getNome());
-            ps.setString(2, candidato.getCognome());
-            ps.setString(3, candidato.getPosizione());
-            ps.setString(4, candidato.getRequisitiPosizione());
-            ps.setString(5, candidato.getSkillCandidato());
-            ps.setString(6, candidato.getIndirizzoMailCandidato());
-
-            ps.executeUpdate();
-        }
+        addCandidatoX(connection, candidato, sql);
     }
     public static void addCandidatoDaValutare(Connection connection, CandidatoBean candidato) throws SQLException {
         String sql = "INSERT INTO CandidatiDaValutare (Nome, Cognome, Posizione, RequisitiPosizione, SkillCandidato, IndirizzoMailCandidato) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                candidatoValues;
 
+        addCandidatoX(connection, candidato, sql);
+    }
+
+    public static void addCandidatoX(Connection connection, CandidatoBean candidato, String sql) throws SQLException {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, candidato.getNome());
             ps.setString(2, candidato.getCognome());
