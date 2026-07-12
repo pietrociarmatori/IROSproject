@@ -13,8 +13,9 @@ import it.pietrociarmatori.model.helpers.gmail.GmailSender;
 import it.pietrociarmatori.model.helpers.gmail.GmailServiceProvider;
 import it.pietrociarmatori.model.helpers.HROnly;
 
-public class InviaEmailController {
-    // Se HR è soddisfatto della mail generata dal sistema, la invia al candidato
+public class RispondiAlCandidatoController {
+    // Hr invia al candidato la mail scritta, oppure può decidere se generarne una automaticamente (extends)
+    // e successivamente inviarla
     @HROnly
     public void inviaMail(CredentialsHRBean cred, CandidatoBean cand, EmailBean mail) throws TaskException {
         AuthService auth;
@@ -23,6 +24,11 @@ public class InviaEmailController {
             auth = AuthService.getInstance();
             if (!auth.isHR(cred)) {
                 throw new SecurityException();
+            }
+
+            if(mail.getEmail() == null){
+                GeneraRispostaController gmdr = new GeneraRispostaController();
+                mail = gmdr.generaRisposta(cred, cand);
             }
 
             Gmail service = GmailServiceProvider.getGmailService();

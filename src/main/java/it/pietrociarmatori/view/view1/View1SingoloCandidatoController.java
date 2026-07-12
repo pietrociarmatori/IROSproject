@@ -1,8 +1,7 @@
 package it.pietrociarmatori.view.view1;
 
-import it.pietrociarmatori.controllerappl.GeneraMailDiRispostaController;
 import it.pietrociarmatori.controllerappl.GestisciCandidatiController;
-import it.pietrociarmatori.controllerappl.InviaEmailController;
+import it.pietrociarmatori.controllerappl.RispondiAlCandidatoController;
 import it.pietrociarmatori.exceptions.TaskException;
 import it.pietrociarmatori.model.beans.CandidatoBean;
 import it.pietrociarmatori.model.beans.EmailBean;
@@ -78,14 +77,19 @@ public class View1SingoloCandidatoController implements ControlledScreen{
         ProfileButtonRenderer pbr = new ProfileButtonRenderer();
         pbr.renderProfile(this.Root, this.sessionHR);
     }
+    // extends
     public void handleGenera() {
         try{
-            GeneraMailDiRispostaController gmdr = new GeneraMailDiRispostaController();
-            EmailBean mail = gmdr.generaRisposta(sessionHR.getCred(), cb);
+            RispondiAlCandidatoController racc = new RispondiAlCandidatoController();
+            EmailBean mail = new EmailBean();
+            mail.setEmail(null);
+            racc.inviaMail(sessionHR.getCred(), cb, mail);
 
             TextMail.clear();
             TextMail.setWrapText(true);
-            TextMail.setText(mail.getEmail());
+
+            NotifyBackendLogs nbl = new NotifyBackendLogs();
+            nbl.notifyLog("Mail generata e inviata!");
         } catch (TaskException e) {
             NotifyBackendLogs nbe = new NotifyBackendLogs();
             nbe.notifyError(e.getMessage());
@@ -114,7 +118,7 @@ public class View1SingoloCandidatoController implements ControlledScreen{
             }
             EmailBean email = new EmailBean();
             email.setEmail(TextMail.getText());
-            InviaEmailController iec = new InviaEmailController();
+            RispondiAlCandidatoController iec = new RispondiAlCandidatoController();
             iec.inviaMail(sessionHR.getCred(), cb, email);
 
             NotifyBackendLogs nbl = new NotifyBackendLogs();

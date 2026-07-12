@@ -14,9 +14,9 @@ import it.pietrociarmatori.model.helpers.Params;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeneraMailDiRispostaController {
+public class GeneraRispostaController {
 
-    // HR può decidere di generare una mail automatica per rispondere ad una candidatura
+    // HR può decidere di generare una mail automatica per rispondere a una candidatura
     // La mail viene generata da un LLM che a seconda del contesto e il livello di idoneità
     // del candidato propone ad HR una possibile risposta
     @HROnly

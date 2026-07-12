@@ -94,7 +94,7 @@
             <Font name="Calibri" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="GeneraButton" layoutX="358.0" layoutY="635.0" mnemonicParsing="false" onAction="#handleGenera" prefHeight="64.0" prefWidth="157.0" style="-fx-background-radius: 15;" text="Genera">
+      <Button fx:id="GeneraButton" layoutX="358.0" layoutY="635.0" mnemonicParsing="false" onAction="#handleGenera" prefHeight="64.0" prefWidth="157.0" style="-fx-background-radius: 15;" text="Genera e invia">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
