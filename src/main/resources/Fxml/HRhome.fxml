@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Root" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.pietrociarmatori.View.View1.View1HrHomeController">
+<AnchorPane fx:id="Root" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.pietrociarmatori.view.view1.View1HrHomeController">
    <children>
       <ImageView fx:id="LogoImage" fitHeight="111.0" fitWidth="394.0" layoutX="403.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
          <image>

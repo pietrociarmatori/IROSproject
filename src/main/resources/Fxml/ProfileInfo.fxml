@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="350.0" style="-fx-background-color: #828582;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.pietrociarmatori.View.View1.View1ProfileDataController">
+<AnchorPane prefHeight="800.0" prefWidth="350.0" style="-fx-background-color: #828582;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.pietrociarmatori.view.view1.View1ProfileDataController">
    <children>
       <Label fx:id="NomeLabel" layoutX="56.0" layoutY="86.0" text="Nome: ">
          <font>

@@ -1,6 +1,5 @@
-import it.pietrociarmatori.Model.Helpers.IA.IAFitness;
-import it.pietrociarmatori.Model.Helpers.IA.IAParseCV;
-import it.pietrociarmatori.Model.Helpers.Params;
+import it.pietrociarmatori.model.helpers.ia.IAParseCV;
+import it.pietrociarmatori.model.helpers.Params;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

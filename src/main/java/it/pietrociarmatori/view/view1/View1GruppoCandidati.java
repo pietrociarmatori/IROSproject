@@ -1,0 +1,168 @@
+package it.pietrociarmatori.view.view1;
+
+import it.pietrociarmatori.controllerappl.GestisciCandidatiController;
+import it.pietrociarmatori.exceptions.TaskException;
+import it.pietrociarmatori.model.beans.CandidatoBean;
+import it.pietrociarmatori.model.beans.TabellaCandidatiBean;
+import it.pietrociarmatori.model.entity.CandidatiDipartimento;
+import it.pietrociarmatori.view.SessionHR;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+public class View1GruppoCandidati implements ControlledScreen{
+    @FXML
+    public Button SoftwareDevButton;
+    @FXML
+    public Button DataEngButton;
+    @FXML
+    public Button SecurityButton;
+    @FXML
+    public Button SalesButton;
+    @FXML
+    public Button BackButton;
+    @FXML
+    public Button LogoButton;
+    @FXML
+    public Button ProfileButton;
+    @FXML
+    public VBox CandidatiContainer;
+    @FXML
+    private AnchorPane Root;
+    private SessionHR sessionHR;
+    private TabellaCandidatiBean tcb;
+
+    private String pathCandButton = "/Fxml/CandidatoButton.fxml";
+    public void handleSoftwareDevButton() {
+        CandidatiContainer.getChildren().clear();
+
+        Map<String, CandidatiDipartimento> tabella = tcb.getTabella();
+        CandidatiDipartimento cd = tabella.get("SoftwareDevelopment");
+        List<CandidatoBean> listaCandidati = cd.getListaCandidati();
+
+        for(CandidatoBean candidato : listaCandidati){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
+                Node element = loader.load();
+
+                View1CandidatoButtonController controller = loader.getController();
+                controller.setParent(CandidatiContainer, element);
+                controller.setCandidato(candidato);
+                controller.onShow(sessionHR);
+
+                CandidatiContainer.getChildren().add(element);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void handleDataEngButton() {
+        CandidatiContainer.getChildren().clear();
+
+        Map<String, CandidatiDipartimento> tabella = tcb.getTabella();
+        CandidatiDipartimento cd = tabella.get("DataEngineering");
+        List<CandidatoBean> listaCandidati = cd.getListaCandidati();
+
+        for(CandidatoBean candidato : listaCandidati){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
+                Node element = loader.load();
+
+                View1CandidatoButtonController controller = loader.getController();
+                controller.setParent(CandidatiContainer, element);
+                controller.setCandidato(candidato);
+                controller.onShow(sessionHR);
+
+                CandidatiContainer.getChildren().add(element);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void handleSecurityButton() {
+        CandidatiContainer.getChildren().clear();
+
+        Map<String, CandidatiDipartimento> tabella = tcb.getTabella();
+        CandidatiDipartimento cd = tabella.get("Security");
+        List<CandidatoBean> listaCandidati = cd.getListaCandidati();
+
+        for(CandidatoBean candidato : listaCandidati){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
+                Node element = loader.load();
+
+                View1CandidatoButtonController controller = loader.getController();
+                controller.setParent(CandidatiContainer, element);
+                controller.setCandidato(candidato);
+                controller.onShow(sessionHR);
+
+                CandidatiContainer.getChildren().add(element);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void handleSalesButton() {
+        CandidatiContainer.getChildren().clear();
+
+        Map<String, CandidatiDipartimento> tabella = tcb.getTabella();
+        CandidatiDipartimento cd = tabella.get("Sales");
+        List<CandidatoBean> listaCandidati = cd.getListaCandidati();
+
+        for(CandidatoBean candidato : listaCandidati){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(pathCandButton));
+                Node element = loader.load();
+
+                View1CandidatoButtonController controller = loader.getController();
+                controller.setParent(CandidatiContainer, element);
+                controller.setCandidato(candidato);
+                controller.onShow(sessionHR);
+
+                CandidatiContainer.getChildren().add(element);
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void handleBackButton() {
+        // va alla home in questo caso
+        App.getSceneManager().switchTo("home", "/Fxml/HRhome.fxml", sessionHR);
+    }
+
+    public void handleLogoButton() {
+        // va alla home
+        App.getSceneManager().switchTo("home", "/Fxml/HRhome.fxml", sessionHR);
+    }
+
+    // Comune a tutte le schermate con l'icona del profilo
+    public void handleProfile() {
+        ProfileButtonRenderer pbr = new ProfileButtonRenderer();
+        pbr.renderProfile(this.Root, this.sessionHR);
+    }
+
+    @Override
+    public void onShow(Object data) {
+        if(data instanceof SessionHR){
+            this.sessionHR = (SessionHR) data;
+        }
+        try {
+            GestisciCandidatiController gcc = new GestisciCandidatiController();
+            tcb = gcc.getTabellaCandidati(sessionHR.getCred());
+        }catch(TaskException e){
+            NotifyBackendLogs nbe = new NotifyBackendLogs();
+            nbe.notifyError(e.getMessage());
+        }
+    }
+}

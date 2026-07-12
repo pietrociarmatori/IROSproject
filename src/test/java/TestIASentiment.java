@@ -1,5 +1,5 @@
-import it.pietrociarmatori.Model.Helpers.IA.IASentiment;
-import it.pietrociarmatori.Model.Helpers.Params;
+import it.pietrociarmatori.model.helpers.ia.IASentiment;
+import it.pietrociarmatori.model.helpers.Params;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

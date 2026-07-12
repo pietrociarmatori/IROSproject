@@ -1,0 +1,58 @@
+package it.pietrociarmatori.view.view1;
+
+import it.pietrociarmatori.controllerappl.LoginController;
+import it.pietrociarmatori.view.SessionHR;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+
+public class View1ProfileDataController {
+    @FXML
+    private Label NomeLabel;
+    @FXML
+    private Label CognomeLabel;
+    @FXML
+    private Label RuoloLabel;
+    @FXML
+    private Label DipartimentoLabel;
+    @FXML
+    private Label MatricolaLabel;
+    @FXML
+    private Label PasswordLabel;
+    @FXML
+    private Button LogoutButton;
+    @FXML
+    private Button CloseButton;
+
+    private SessionHR sessionHR;
+    private Pane parent;
+    private Node self;
+
+    public void setData(SessionHR sessionHR){
+        this.sessionHR = sessionHR;
+        NomeLabel.setText("Nome: "+sessionHR.getCred().getNome());
+        CognomeLabel.setText("Cognome: "+sessionHR.getCred().getCognome());
+        RuoloLabel.setText("Ruolo: "+sessionHR.getCred().getRuolo());
+        DipartimentoLabel.setText("Dipartimento: "+sessionHR.getCred().getDipartimento());
+        MatricolaLabel.setText("Matricola: "+sessionHR.getCred().getMatricola());
+        PasswordLabel.setText("Password: "+sessionHR.getCred().getPassword());
+    }
+
+    public void handleLogout() {
+        LoginController lc = new LoginController();
+        lc.logout(sessionHR.getCred());
+        App.getSceneManager().switchTo("login", "/Fxml/Login.fxml");
+    }
+    public void setParent(Pane parent, Node self) {
+        this.parent = parent;
+        this.self = self;
+    }
+
+    public void handleClose() {
+        if (parent != null && self != null) {
+            parent.getChildren().remove(self);
+        }
+    }
+}

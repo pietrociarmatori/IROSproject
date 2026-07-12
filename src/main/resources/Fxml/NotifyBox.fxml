@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="Root" prefHeight="190.0" prefWidth="303.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.pietrociarmatori.View.View1.View1NotifyBoxController">
+<AnchorPane fx:id="Root" prefHeight="190.0" prefWidth="303.0" style="-fx-background-color: #d9d9d9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.pietrociarmatori.view.view1.View1NotifyBoxController">
    <children>
       <Label fx:id="ErroreONotifica" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="275.0" text="Label">
          <font>
